@@ -5,13 +5,14 @@
 #gameBoard {
   width : 300px;
   height: 300px;
-  float: left;
+  margin: 50px auto;
 }
 
 #gameBoard div.cell {
   width:30px;
   height: 30px;
-  background-image: url('../images/white.png');
+  background-image: url('../images/_white.png');
+  float: left;
 }
 
 .cell {
@@ -19,17 +20,18 @@
   border-left: 1px solid black;
 }
 
-.cell[data-x=9] {
+[data-x = '9'] {
   border-right: 1px solid black;
 }
-.cell[data-y=9] {
+
+[data-y = '9'] {
   border-bottom: 1px solid black;
 }
 
 #gameBoard div.cell.cross {
-  background-image: url('../images/cross.png');
+  background-image: url('../images/_cross.png');
 }
 
 #gameBoard div.cell.circle {
-  background-image: url('../images/circle.png');
+  background-image: url('../images/_circle.png');
 }
