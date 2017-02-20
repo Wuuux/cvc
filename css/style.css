@@ -3,8 +3,8 @@
 }
 
 #gameBoard {
-  width : 300px;
-  height: 300px;
+  width : 600px;
+  height: 600px;
   margin: 50px auto;
 }
 
@@ -13,6 +13,9 @@
   height: 30px;
   background-image: url('../images/_white.png');
   float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cell {
@@ -20,11 +23,11 @@
   border-left: 1px solid black;
 }
 
-[data-x = '9'] {
+[data-x = '19'] {
   border-right: 1px solid black;
 }
 
-[data-y = '9'] {
+[data-y = '19'] {
   border-bottom: 1px solid black;
 }
 
@@ -34,4 +37,9 @@
 
 #gameBoard div.cell.circle {
   background-image: url('../images/_circle.png');
+}
+
+.maxPower {
+  color : blue;
+  font-weight: bold;
 }
