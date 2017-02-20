@@ -11,5 +11,25 @@
 #gameBoard div.cell {
   width:30px;
   height: 30px;
-  background-image: url('../images/white');
+  background-image: url('../images/white.png');
+}
+
+.cell {
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.cell[data-x=9] {
+  border-right: 1px solid black;
+}
+.cell[data-y=9] {
+  border-bottom: 1px solid black;
+}
+
+#gameBoard div.cell.cross {
+  background-image: url('../images/cross.png');
+}
+
+#gameBoard div.cell.circle {
+  background-image: url('../images/circle.png');
 }
