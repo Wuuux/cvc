@@ -35,6 +35,11 @@ $(document).ready(function(){
         this.set_Neighborous( _x, _y, 'cross' );
         this.$board.find('div').eq( _x + _y * this.size).addClass('cross').removeClass('empty');
       };
+      this.remove_Circle = function( _x , _y ){
+        this.board[_x][_y][0] = 0;
+        this.set_Neighborous( _x, _y, 'circle' );
+        this.$board.find('div').eq( _x + _y * this.size).addClass('empty').removeClass('circle');
+      };
 
       this.clearPrint = function( _element ){
         this.$board = $(_element);
@@ -67,17 +72,6 @@ $(document).ready(function(){
               }
             });
 
-            $('.cell').hover(
-              function(){
-                console.log('enter');
-              },
-              function(){
-                console.log('leave');
-              });
-
-
-
-
 
           };
         };
@@ -106,9 +100,22 @@ $(document).ready(function(){
                   this.setPower(i,j,'WW',4);
                   this.setPower(i,j,'NW',4);
                 };
+                // else if (this.board[i][j][0] == 0) {
+                //   if
+                //   (
+                //         ((this.board[i][j-1][0] + this.board[i][j-2][0] + this.board[i][j-3][0] + this.board[i][j-4][0]) == 4)
+                //       || ((this.board[i][j+1][0] + this.board[i][j+2][0] + this.board[i][j+3][0] + this.board[i][j+4][0]) == 4)
+                //       || ((this.board[i+1][j][0] + this.board[i+2][j][0] + this.board[i+3][j][0] + this.board[i+4][j][0]) == 4)
+                //       || ((this.board[i-1][j][0] + this.board[i-2][j][0] + this.board[i-3][j][0] + this.board[i-4][j][0]) == 4)
+                //       || ((this.board[i+1][j-1][0] + this.board[i+2][j-2][0] + this.board[i+3][j-3][0] + this.board[i+4][j-4][0]) == 4)
+                //       || ((this.board[i+1][j+1][0] + this.board[i+2][j+2][0] + this.board[i+3][j+3][0] + this.board[i+4][j+4][0]) == 4)
+                //       || ((this.board[i-1][j+1][0] + this.board[i-2][j+2][0] + this.board[i-3][j+3][0] + this.board[i-4][j+4][0]) == 4)
+                //       || ((this.board[i-1][j-1][0] + this.board[i-2][j-2][0] + this.board[i-3][j-3][0] + this.board[i-4][j-4][0]) == 4)
+                //   )
+                // };
+
               };
           };
-        console.log(this.board);
       };
 
       this.setPower = function(_x,_y, _direction, _power){
@@ -221,6 +228,8 @@ $(document).ready(function(){
               };
             };
         };
+
+
       };
 
 
