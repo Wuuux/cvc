@@ -55,72 +55,85 @@ $(document).ready(function(){
       };
 
       this.clearPrint = function( _element ){
+        var game = this;
         this.$board = $(_element);
         var cell;
         for (var y = 0; y < this.size; y++) {
           for (var x = 0; x < this.size; x++) {
             cell = $("<div class='cell empty' data-x="+x+" data-y="+y+"></div>");
             this.$board.append(cell);
-            var game = this;
-
-            $('.cell').on('click',function(){
-
-              if ((player == 'circle') && ($(this).hasClass('empty') == true)) {
-
-                            // $(this).addClass('circle').removeClass('empty');
-                            game.set_Circle($(this).data('x'),$(this).data('y'));
-                            game.fillPowerArr();
-                            game.showPowerArr();
-
-              }
-              else if ((player == 'circle') && ($(this).hasClass('circle') == true)) {
-
-                            game.remove_Circle($(this).data('x'),$(this).data('y'));
-                            game.fillPowerArr();
-                            game.showPowerArr();
-
-              }
-              else if ((player == 'cross') && ($(this).hasClass('empty') == true)) {
-
-                            // $(this).addClass('cross').removeClass('empty');
-                            game.set_Cross($(this).data('x'),$(this).data('y'));
-
-              }
-              else if ((player == 'cross') && ($(this).hasClass('cross') == true)) {
-
-                            game.remove_Cross($(this).data('x'),$(this).data('y'));
-
-              };
-
-              // if (game.crossFlag == true) {
-              //       if ($(this).hasClass('empty') == true) {
-              //         // $(this).addClass('cross').removeClass('empty');
-              //         game.set_Cross($(this).data('x'),$(this).data('y'));
-              //         game.crossFlag = false;
-              //         game.circleFlag = true;
-              //       };
-              //
-              // }
-              // else {
-              //       if ($(this).hasClass('empty') == true) {
-              //         // $(this).addClass('circle').removeClass('empty');
-              //         game.set_Circle($(this).data('x'),$(this).data('y'));
-              //         game.crossFlag = true;
-              //         game.circleFlag = false;
-              //         game.fillPowerArr();
-              //         game.showPowerArr();
-              //       };
-              // }
-            });
-
-
           };
         };
+
+        $('.cell').on('click',function(){
+
+          // if ((player == 'circle') && ($(this).hasClass('empty') == true)) {
+          //
+          //               $(this).addClass('circle').removeClass('empty');
+          //               console.log('player circle empty');
+          //               game.set_Circle($(this).data('x'),$(this).data('y'));
+          //               game.fillPowerArr();
+          //               game.showPowerArr();
+          //
+          // } else {
+          //
+          // };
+
+          if ((player == 'circle') && ($(this).hasClass('empty') == true)) {
+
+                        // $(this).addClass('circle').removeClass('empty');
+                        console.log('player circle empty');
+                        game.set_Circle($(this).data('x'),$(this).data('y'));
+                        game.fillPowerArr();
+                        game.showPowerArr();
+
+          }
+          else if ((player == 'circle') && ($(this).hasClass('circle') == true)) {
+
+                        game.remove_Circle($(this).data('x'),$(this).data('y'));
+                        game.fillPowerArr();
+                        game.showPowerArr();
+
+          }
+          else if ((player == 'cross') && ($(this).hasClass('empty') == true)) {
+
+                        // $(this).addClass('cross').removeClass('empty');
+                        game.set_Cross($(this).data('x'),$(this).data('y'));
+
+          }
+          else if ((player == 'cross') && ($(this).hasClass('cross') == true)) {
+
+                        game.remove_Cross($(this).data('x'),$(this).data('y'));
+
+          };
+
+          // if (game.crossFlag == true) {
+          //       if ($(this).hasClass('empty') == true) {
+          //         // $(this).addClass('cross').removeClass('empty');
+          //         game.set_Cross($(this).data('x'),$(this).data('y'));
+          //         game.crossFlag = false;
+          //         game.circleFlag = true;
+          //       };
+          //
+          // }
+          // else {
+          //       if ($(this).hasClass('empty') == true) {
+          //         // $(this).addClass('circle').removeClass('empty');
+          //         game.set_Circle($(this).data('x'),$(this).data('y'));
+          //         game.crossFlag = true;
+          //         game.circleFlag = false;
+          //         game.fillPowerArr();
+          //         game.showPowerArr();
+          //       };
+          // }
+        });
+
       };
 
       this.clearPowerArr = function(){
         for (var i = 0; i < this.size; i++) {
             for (var j = 0; j < this.size; j++) {
+              this.$board.find('div').eq( i + j * this.size).removeClass('maxPower');
               this.board[i][j][1] = 0;
             };
         };
