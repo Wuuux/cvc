@@ -1,5 +1,17 @@
 $(document).ready(function(){
 
+  var player = 'circle';
+  $('#player').on('click', function(){
+    if (player == 'circle') {
+      player = 'cross';
+      $(this).addClass('playerCross').removeClass('playerCircle').text('X');
+    }
+    else {
+      player = 'circle';
+      $(this).addClass('playerCircle').removeClass('playerCross').text('O');
+    };
+  });
+
   function GameBoard() {
       this.size  = 0;
       this.board = [];
@@ -27,18 +39,19 @@ $(document).ready(function(){
 
       this.set_Circle = function( _x , _y ){
         this.board[_x][_y][0] = 1;
-        this.set_Neighborous( _x, _y, 'circle' );
         this.$board.find('div').eq( _x + _y * this.size).addClass('circle').removeClass('empty');
       };
       this.set_Cross = function( _x , _y ){
         this.board[_x][_y][0] = -1;
-        this.set_Neighborous( _x, _y, 'cross' );
         this.$board.find('div').eq( _x + _y * this.size).addClass('cross').removeClass('empty');
       };
       this.remove_Circle = function( _x , _y ){
         this.board[_x][_y][0] = 0;
-        this.set_Neighborous( _x, _y, 'circle' );
         this.$board.find('div').eq( _x + _y * this.size).addClass('empty').removeClass('circle');
+      };
+      this.remove_Cross = function( _x , _y ){
+        this.board[_x][_y][0] = 0;
+        this.$board.find('div').eq( _x + _y * this.size).addClass('empty').removeClass('cross');
       };
 
       this.clearPrint = function( _element ){
@@ -51,25 +64,53 @@ $(document).ready(function(){
             var game = this;
 
             $('.cell').on('click',function(){
-              if (game.crossFlag == true) {
-                    if ($(this).hasClass('empty') == true) {
-                      // $(this).addClass('cross').removeClass('empty');
-                      game.set_Cross($(this).data('x'),$(this).data('y'));
-                      game.crossFlag = false;
-                      game.circleFlag = true;
-                    };
+
+              if ((player == 'circle') && ($(this).hasClass('empty') == true)) {
+
+                            // $(this).addClass('circle').removeClass('empty');
+                            game.set_Circle($(this).data('x'),$(this).data('y'));
+                            game.fillPowerArr();
+                            game.showPowerArr();
 
               }
-              else {
-                    if ($(this).hasClass('empty') == true) {
-                      // $(this).addClass('circle').removeClass('empty');
-                      game.set_Circle($(this).data('x'),$(this).data('y'));
-                      game.crossFlag = true;
-                      game.circleFlag = false;
-                      game.fillPowerArr();
-                      game.showPowerArr();
-                    };
+              else if ((player == 'circle') && ($(this).hasClass('circle') == true)) {
+
+                            game.remove_Circle($(this).data('x'),$(this).data('y'));
+                            game.fillPowerArr();
+                            game.showPowerArr();
+
               }
+              else if ((player == 'cross') && ($(this).hasClass('empty') == true)) {
+
+                            // $(this).addClass('cross').removeClass('empty');
+                            game.set_Cross($(this).data('x'),$(this).data('y'));
+
+              }
+              else if ((player == 'cross') && ($(this).hasClass('cross') == true)) {
+
+                            game.remove_Cross($(this).data('x'),$(this).data('y'));
+
+              };
+
+              // if (game.crossFlag == true) {
+              //       if ($(this).hasClass('empty') == true) {
+              //         // $(this).addClass('cross').removeClass('empty');
+              //         game.set_Cross($(this).data('x'),$(this).data('y'));
+              //         game.crossFlag = false;
+              //         game.circleFlag = true;
+              //       };
+              //
+              // }
+              // else {
+              //       if ($(this).hasClass('empty') == true) {
+              //         // $(this).addClass('circle').removeClass('empty');
+              //         game.set_Circle($(this).data('x'),$(this).data('y'));
+              //         game.crossFlag = true;
+              //         game.circleFlag = false;
+              //         game.fillPowerArr();
+              //         game.showPowerArr();
+              //       };
+              // }
             });
 
 
@@ -239,5 +280,7 @@ $(document).ready(function(){
    gameBoard = new GameBoard();
    gameBoard.init(20);
    gameBoard.clearPrint($('#gameBoard'));
+
+
 
 });
