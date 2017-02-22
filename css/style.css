@@ -61,11 +61,11 @@
   border-left: 1px solid black;
 }
 
-[data-x = '19'] {
+[data-x = '15'] {
   border-right: 1px solid black;
 }
 
-[data-y = '19'] {
+[data-y = '15'] {
   border-bottom: 1px solid black;
 }
 
@@ -80,4 +80,23 @@
 .maxPower {
   color : blue;
   font-weight: bold;
+}
+
+div.cell.noactive {
+  visibility: hidden;
+}
+
+.attention {
+    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+    animation-name: example;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+    0%   {visibility: visible;}
+    50%  {visibility: hidden;}
+    100%  {visibility: visible;}
 }

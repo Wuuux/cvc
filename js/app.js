@@ -1,5 +1,21 @@
 $(document).ready(function(){
 
+  $('#start button').on('click',function(){
+    if ($(this).text() == 'YES') {
+      $('#mask').hide();
+    } else {
+      window.location.replace("https://github.com/Wuuux/cvc");
+    };
+  });
+  var time = 0;
+  var wait_5s = setInterval(function(){ myTimer() }, 1000);
+
+  function myTimer() {
+      time++;
+      if (time == 5) time = 0;
+      return time;
+  }
+
   var player = 'circle';
   $('#player').on('click', function(){
     if (player == 'circle') {
@@ -33,10 +49,6 @@ $(document).ready(function(){
         console.log(this.board);
       };
 
-      this.set_Neighborous = function( _x, _y, _content){
-
-      };
-
       this.set_Circle = function( _x , _y ){
         this.board[_x][_y][0] = 1;
         this.$board.find('div').eq( _x + _y * this.size).addClass('circle').removeClass('empty');
@@ -60,12 +72,19 @@ $(document).ready(function(){
         var cell;
         for (var y = 0; y < this.size; y++) {
           for (var x = 0; x < this.size; x++) {
-            cell = $("<div class='cell empty' data-x="+x+" data-y="+y+"></div>");
+            if ((x < 4) || (y < 4) || (x > this.size-5) || (y > this.size-5))
+                {
+                  cell = $("<div class='cell empty noactive' data-x="+x+" data-y="+y+"></div>");
+                }
+            else
+                {
+                  cell = $("<div class='cell empty active' data-x="+x+" data-y="+y+"></div>");
+                };
             this.$board.append(cell);
           };
         };
 
-        $('.cell').on('click',function(){
+        $('.cell.active').on('click',function(){
 
           // if ((player == 'circle') && ($(this).hasClass('empty') == true)) {
           //
@@ -86,6 +105,21 @@ $(document).ready(function(){
                         game.set_Circle($(this).data('x'),$(this).data('y'));
                         game.fillPowerArr();
                         game.showPowerArr();
+                        var x_answer = game.$board.find('.maxPower').eq(0).data('x');
+                        var y_answer = game.$board.find('.maxPower').eq(0).data('y');
+                        while (time != 0) {};
+                        game.set_Cross(x_answer,y_answer);
+
+
+
+
+
+
+
+
+
+
+
 
           }
           else if ((player == 'circle') && ($(this).hasClass('circle') == true)) {
@@ -173,6 +207,7 @@ $(document).ready(function(){
       };
 
       this.setPower = function(_x,_y, _direction, _power){
+        if ((_x < 4) || (_y < 4) || (_x > this.size-5) || (_y > this.size-5)) return;
         switch(true) {
               case (_direction == 'NN'):
               console.log('NN',this.board[ _x ][ _y-1 ][0]);
