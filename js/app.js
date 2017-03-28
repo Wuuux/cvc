@@ -462,7 +462,7 @@ $(document).ready(function(){
         var max = 0;
         for (var i = 0; i < this.size; i++) {
             for (var j = 0; j < this.size; j++) {
-              this.$board.find("[data-x='"+i+"'][data-y='"+j+"']").text(this.board[i][j][1]);
+              //this.$board.find("[data-x='"+i+"'][data-y='"+j+"']").text(this.board[i][j][1]); to show numbers
               if (this.board[i][j][1] > max) {
                 max = this.board[i][j][1];
                 this.$board.find("[data-x='"+iMax+"'][data-y='"+jMax+"']").removeClass('maxPower');
