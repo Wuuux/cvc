@@ -1,12 +1,6 @@
 $(document).ready(function(){
 
-  $('#start button').on('click',function(){
-    if ($(this).text() == 'YES') {
-      $('#mask').hide();
-    } else {
-      window.location.replace("https://github.com/Wuuux/cvc");
-    };
-  });
+
   // var time = 0;
   // var wait_5s = setInterval(function(){ myTimer() }, 1000);
   //
@@ -18,15 +12,28 @@ $(document).ready(function(){
   // }
 
   var player = 'circle';
-  $('#player').on('click', function(){
-    if (player == 'circle') {
-      player = 'cross';
-      $(this).addClass('playerCross').removeClass('playerCircle').text('X');
-    }
-    else {
-      player = 'circle';
-      $(this).addClass('playerCircle').removeClass('playerCross').text('O');
+  var gameOn = true;
+  var winner = '';
+
+  $('#start button').on('click',function(){
+    if ($(this).text() == 'YES') {
+      $('#mask').hide();
+      gameOn = true;
+      winner = '';
+    } else {
+      window.location.replace("https://github.com/Wuuux/cvc");
     };
+  });
+
+  $('#player').on('click', function(){
+    // if (player == 'circle') {
+    //   player = 'cross';
+    //   $(this).addClass('playerCross').removeClass('playerCircle').text('X');
+    // }
+    // else {
+    //   player = 'circle';
+    //   $(this).addClass('playerCircle').removeClass('playerCross').text('O');
+    // };
   });
 
   function GameBoard() {
@@ -51,9 +58,11 @@ $(document).ready(function(){
             }
           };
         };
-        console.log(this.board);
+        console.log('board',this.board);
       };
 
+      //
+      // returns TRUE if will find LENGTH examples of VALUE in specific direction
       this.findXstringOfValues = function( _x, _y, _direction, length, value ){
         if (value == 'circle')  v = 1
         else                    v = -1;
@@ -118,32 +127,279 @@ $(document).ready(function(){
 
       };
 
+      this.findXstringOfValuesPlusEmpty = function( _x, _y, _direction, length, value ){
+        if (value == 'circle')  v = 1
+        else                    v = -1;
+        switch(true) {
+              case (_direction == 'NW'):
+                  if (this.board[ _x-1 ][ _y-1 ][0] == v) {
+                    if ((length-1 == 1) && (this.board[ _x-2 ][ _y-2 ][0] == 0))  return true;
+                    if ((length-1 == 1) && (this.board[ _x-2 ][ _y-2 ][0] != 0))  return false;
+                    return this.findXstringOfValuesPlusEmpty(_x-1, _y-1, 'NW', length-1, value);
+                  };
+                  return false;
+              break;
+              case (_direction == 'NN'):
+                  if (this.board[ _x ][ _y-1 ][0] == v) {
+                    if ((length-1 == 1) && (this.board[ _x ][ _y-2 ][0] == 0))  return true;
+                    if ((length-1 == 1) && (this.board[ _x ][ _y-2 ][0] != 0))  return false;
+                    return this.findXstringOfValuesPlusEmpty(_x, _y-1, 'NN', length-1, value);
+                  };
+                  return false;
+              break;
+              case (_direction == 'NE'):
+                  if (this.board[ _x+1 ][ _y-1 ][0] == v) {
+                    if ((length-1 == 1) && (this.board[ _x+2 ][ _y-2 ][0] == 0))  return true;
+                    if ((length-1 == 1) && (this.board[ _x+2 ][ _y-2 ][0] != 0))  return false;
+                    return this.findXstringOfValuesPlusEmpty(_x+1, _y-1, 'NE', length-1, value);
+                  };
+                  return false;
+              break;
+              case (_direction == 'EE'):
+                  if (this.board[ _x+1 ][ _y ][0] == v) {
+                    if ((length-1 == 1) && (this.board[ _x+2 ][ _y ][0] == 0))  return true;
+                    if ((length-1 == 1) && (this.board[ _x+2 ][ _y ][0] != 0))  return false;
+                    return this.findXstringOfValuesPlusEmpty(_x+1, _y, 'EE', length-1, value);
+                  };
+                  return false;
+              break;
+              case (_direction == 'SE'):
+                  if (this.board[ _x+1 ][ _y+1 ][0] == v) {
+                    if ((length-1 == 1) && (this.board[ _x+2 ][ _y+2 ][0] == 0))  return true;
+                    if ((length-1 == 1) && (this.board[ _x+2 ][ _y+2 ][0] != 0))  return false;
+                    return this.findXstringOfValuesPlusEmpty(_x+1, _y+1, 'SE', length-1, value);
+                  };
+                  return false;
+              break;
+              case (_direction == 'SS'):
+                  if (this.board[ _x ][ _y+1 ][0] == v) {
+                    if ((length-1 == 1) && (this.board[ _x ][ _y+2 ][0] == 0))  return true;
+                    if ((length-1 == 1) && (this.board[ _x ][ _y+2 ][0] != 0))  return false;
+                    return this.findXstringOfValuesPlusEmpty(_x, _y+1, 'SS', length-1, value);
+                  };
+                  return false;
+              break;
+              case (_direction == 'SW'):
+                  if (this.board[ _x-1 ][ _y+1 ][0] == v) {
+                    if ((length-1 == 1) && (this.board[ _x-2 ][ _y+2 ][0] == 0))  return true;
+                    if ((length-1 == 1) && (this.board[ _x-2 ][ _y+2 ][0] != 0))  return false;
+                    return this.findXstringOfValuesPlusEmpty(_x-1, _y+1, 'SW', length-1, value);
+                  };
+                  return false;
+              break;
+              case (_direction == 'WW'):
+                  if (this.board[ _x-1 ][ _y ][0] == v) {
+                    if ((length-1 == 1) && (this.board[ _x-2 ][ _y ][0] == 0))  return true;
+                    if ((length-1 == 1) && (this.board[ _x-2 ][ _y ][0] != 0))  return false;
+                    return this.findXstringOfValuesPlusEmpty(_x-1, _y, 'WW', length-1, value);
+                  };
+                  return false;
+              break;
+        };
+
+      };
+
       this.findFiveCircles = function(){
         for (var i = 0; i < this.circleArray.length; i++) {
-          if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NW',5,'circle') == true) return true;
-          if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NN',5,'circle') == true) return true;
-          if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NE',5,'circle') == true) return true;
-          if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'EE',5,'circle') == true) return true;
-          if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SE',5,'circle') == true) return true;
-          if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SS',5,'circle') == true) return true;
-          if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SW',5,'circle') == true) return true;
-          if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'WW',5,'circle') == true) return true;
-        };
+          if (   (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NW',5,'circle') == true)
+              || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NN',5,'circle') == true)
+              || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NE',5,'circle') == true)
+              || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'EE',5,'circle') == true)
+              || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SE',5,'circle') == true)
+              || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SS',5,'circle') == true)
+              || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SW',5,'circle') == true)
+              || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'WW',5,'circle') == true))
+              {
+                console.log('five O:', this.circleArray[i][0],this.circleArray[i][1] );
+                return true;
+              }
+          };
         return false;
       };
 
       this.findFiveCrosses = function(){
         for (var i = 0; i < this.crossArray.length; i++) {
-          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NW',5,'cross') == true) return true;
-          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NN',5,'cross') == true) return true;
-          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NE',5,'cross') == true) return true;
-          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'EE',5,'cross') == true) return true;
-          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SE',5,'cross') == true) return true;
-          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SS',5,'cross') == true) return true;
-          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SW',5,'cross') == true) return true;
-          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'WW',5,'cross') == true) return true;
+          if (
+             (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NW',5,'cross') == true)
+          || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NN',5,'cross') == true)
+          || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NE',5,'cross') == true)
+          || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'EE',5,'cross') == true)
+          || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SE',5,'cross') == true)
+          || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SS',5,'cross') == true)
+          || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SW',5,'cross') == true)
+          || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'WW',5,'cross') == true))
+          {
+            console.log('five X:', this.crossArray[i][0],this.crossArray[i][1] );
+            return true;
+          }
         };
         return false;
+      };
+
+      this.findFourCircles = function(){
+        var answer = [-1,-1];
+        for (var i = 0; i < this.arrayOfEmptySpaceAroundCircles.length; i++) {
+          var x = this.arrayOfEmptySpaceAroundCircles[i][0];
+          var y = this.arrayOfEmptySpaceAroundCircles[i][1];
+
+          if ((this.findXstringOfValues(x,y,'NW',5,'circle') == true)
+           || (this.findXstringOfValues(x,y,'NN',5,'circle') == true)
+           || (this.findXstringOfValues(x,y,'NE',5,'circle') == true)
+           || (this.findXstringOfValues(x,y,'EE',5,'circle') == true)
+           || (this.findXstringOfValues(x,y,'SE',5,'circle') == true)
+           || (this.findXstringOfValues(x,y,'SS',5,'circle') == true)
+           || (this.findXstringOfValues(x,y,'SW',5,'circle') == true)
+           || (this.findXstringOfValues(x,y,'WW',5,'circle') == true)
+           || ((this.findXstringOfValues(x,y,'NW',4,'circle') == true) && (this.findXstringOfValues(x,y,'SE',2,'circle') == true))
+           || ((this.findXstringOfValues(x,y,'NN',4,'circle') == true) && (this.findXstringOfValues(x,y,'SS',2,'circle') == true))
+           || ((this.findXstringOfValues(x,y,'NE',4,'circle') == true) && (this.findXstringOfValues(x,y,'SW',2,'circle') == true))
+           || ((this.findXstringOfValues(x,y,'WW',4,'circle') == true) && (this.findXstringOfValues(x,y,'EE',2,'circle') == true))
+           || ((this.findXstringOfValues(x,y,'NW',2,'circle') == true) && (this.findXstringOfValues(x,y,'SE',4,'circle') == true))
+           || ((this.findXstringOfValues(x,y,'NN',2,'circle') == true) && (this.findXstringOfValues(x,y,'SS',4,'circle') == true))
+           || ((this.findXstringOfValues(x,y,'NE',2,'circle') == true) && (this.findXstringOfValues(x,y,'SW',4,'circle') == true))
+           || ((this.findXstringOfValues(x,y,'WW',2,'circle') == true) && (this.findXstringOfValues(x,y,'EE',4,'circle') == true))
+           || ((this.findXstringOfValues(x,y,'NW',3,'circle') == true) && (this.findXstringOfValues(x,y,'SE',3,'circle') == true))
+           || ((this.findXstringOfValues(x,y,'NN',3,'circle') == true) && (this.findXstringOfValues(x,y,'SS',3,'circle') == true))
+           || ((this.findXstringOfValues(x,y,'NE',3,'circle') == true) && (this.findXstringOfValues(x,y,'SW',3,'circle') == true))
+           || ((this.findXstringOfValues(x,y,'WW',3,'circle') == true) && (this.findXstringOfValues(x,y,'EE',3,'circle') == true))
+         )
+                                                                      {
+                                                                        answer[0]=x;
+                                                                        answer[1]=y;
+                                                                        return answer;
+                                                                      }
+        };
+        return answer;
+      };
+
+      this.findFourCrosses = function(){
+        var answer = [-1,-1];
+        //console.log('array around crosses',this.arrayOfEmptySpaceAroundCrosses);
+        for (var i = 0; i < this.arrayOfEmptySpaceAroundCrosses.length; i++) {
+          var x = this.arrayOfEmptySpaceAroundCrosses[i][0];
+          var y = this.arrayOfEmptySpaceAroundCrosses[i][1];
+
+          if ((this.findXstringOfValues(x,y,'NW',5,'cross') == true)
+           || (this.findXstringOfValues(x,y,'NN',5,'cross') == true)
+           || (this.findXstringOfValues(x,y,'NE',5,'cross') == true)
+           || (this.findXstringOfValues(x,y,'EE',5,'cross') == true)
+           || (this.findXstringOfValues(x,y,'SE',5,'cross') == true)
+           || (this.findXstringOfValues(x,y,'SS',5,'cross') == true)
+           || (this.findXstringOfValues(x,y,'SW',5,'cross') == true)
+           || (this.findXstringOfValues(x,y,'WW',5,'cross') == true)
+           || ((this.findXstringOfValues(x,y,'NW',4,'cross') == true) && (this.findXstringOfValues(x,y,'SE',2,'cross') == true))
+           || ((this.findXstringOfValues(x,y,'NN',4,'cross') == true) && (this.findXstringOfValues(x,y,'SS',2,'cross') == true))
+           || ((this.findXstringOfValues(x,y,'NE',4,'cross') == true) && (this.findXstringOfValues(x,y,'SW',2,'cross') == true))
+           || ((this.findXstringOfValues(x,y,'WW',4,'cross') == true) && (this.findXstringOfValues(x,y,'EE',2,'cross') == true))
+           || ((this.findXstringOfValues(x,y,'NW',2,'cross') == true) && (this.findXstringOfValues(x,y,'SE',4,'cross') == true))
+           || ((this.findXstringOfValues(x,y,'NN',2,'cross') == true) && (this.findXstringOfValues(x,y,'SS',4,'cross') == true))
+           || ((this.findXstringOfValues(x,y,'NE',2,'cross') == true) && (this.findXstringOfValues(x,y,'SW',4,'cross') == true))
+           || ((this.findXstringOfValues(x,y,'WW',2,'cross') == true) && (this.findXstringOfValues(x,y,'EE',4,'cross') == true))
+           || ((this.findXstringOfValues(x,y,'NW',3,'cross') == true) && (this.findXstringOfValues(x,y,'SE',3,'cross') == true))
+           || ((this.findXstringOfValues(x,y,'NN',3,'cross') == true) && (this.findXstringOfValues(x,y,'SS',3,'cross') == true))
+           || ((this.findXstringOfValues(x,y,'NE',3,'cross') == true) && (this.findXstringOfValues(x,y,'SW',3,'cross') == true))
+           || ((this.findXstringOfValues(x,y,'WW',3,'cross') == true) && (this.findXstringOfValues(x,y,'EE',3,'cross') == true))
+         )
+                                                                      {
+                                                                        answer[0]=x;
+                                                                        answer[1]=y;
+
+                                                                        return answer;
+                                                                      }
+        };
+
+        return answer;
+      };
+
+      this.findThreeFreeCrosses = function(){
+        var answer = [-1,-1];
+        for (var i = 0; i < this.arrayOfEmptySpaceAroundCrosses.length; i++) {
+          var x = this.arrayOfEmptySpaceAroundCrosses[i][0];
+          var y = this.arrayOfEmptySpaceAroundCrosses[i][1];
+          this.$board.find("[data-x='"+x+"'][data-y='"+y+"']").removeClass('threeFreeCrosses');
+          if (((this.findXstringOfValuesPlusEmpty(x,y,'NW',4,'cross') == true) && (this.board[x+1][y+1][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'NN',4,'cross') == true) && (this.board[x  ][y+1][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'NE',4,'cross') == true) && (this.board[x-1][y+1][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'EE',4,'cross') == true) && (this.board[x-1][y  ][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'SE',4,'cross') == true) && (this.board[x-1][y-1][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'SS',4,'cross') == true) && (this.board[x  ][y-1][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'SW',4,'cross') == true) && (this.board[x+1][y-1][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'WW',4,'cross') == true) && (this.board[x+1][y  ][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'NW',3,'cross') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'SE',2,'cross') == true))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'NN',3,'cross') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'SS',2,'cross') == true))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'NE',3,'cross') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'SW',2,'cross') == true))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'EE',3,'cross') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'WW',2,'cross') == true))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'SE',3,'cross') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'NW',2,'cross') == true))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'SS',3,'cross') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'NN',2,'cross') == true))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'SW',3,'cross') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'NE',2,'cross') == true))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'WW',3,'cross') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'EE',2,'cross') == true))
+
+         )
+                                                                      {
+                                                                        answer[0]=x;
+                                                                        answer[1]=y;
+                                                                        //console.log('free three crosses',answer);
+                                                                        this.$board.find("[data-x='"+x+"'][data-y='"+y+"']").addClass('threeFreeCrosses');
+                                                                        return answer;
+                                                                      }
+        };
+        //console.log('space aroud crosses', this.arrayOfEmptySpaceAroundCrosses);
+        //console.log('no free three crosses',answer);
+        return answer;
+      };
+
+      this.findThreeFreeCircles = function(){
+        var answer = [-1,-1];
+        for (var i = 0; i < this.arrayOfEmptySpaceAroundCircles.length; i++) {
+          var x = this.arrayOfEmptySpaceAroundCircles[i][0];
+          var y = this.arrayOfEmptySpaceAroundCircles[i][1];
+          this.$board.find("[data-x='"+x+"'][data-y='"+y+"']").removeClass('threeFreeCircles');
+          console.log(x,y);
+          if (((this.findXstringOfValuesPlusEmpty(x,y,'NW',4,'circle') == true) && (this.board[x+1][y+1][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'NN',4,'circle') == true) && (this.board[x  ][y+1][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'NE',4,'circle') == true) && (this.board[x-1][y+1][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'EE',4,'circle') == true) && (this.board[x-1][y  ][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'SE',4,'circle') == true) && (this.board[x-1][y-1][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'SS',4,'circle') == true) && (this.board[x  ][y-1][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'SW',4,'circle') == true) && (this.board[x+1][y-1][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'WW',4,'circle') == true) && (this.board[x+1][y  ][0] == 0))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'NW',3,'circle') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'SE',2,'circle') == true))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'NN',3,'circle') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'SS',2,'circle') == true))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'NE',3,'circle') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'SW',2,'circle') == true))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'EE',3,'circle') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'WW',2,'circle') == true))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'SE',3,'circle') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'NW',2,'circle') == true))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'SS',3,'circle') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'NN',2,'circle') == true))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'SW',3,'circle') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'NE',2,'circle') == true))
+           || ((this.findXstringOfValuesPlusEmpty(x,y,'WW',3,'circle') == true) && (this.findXstringOfValuesPlusEmpty(x,y,'EE',2,'circle') == true))
+
+         )
+                                                                      {
+                                                                        answer[0]=x;
+                                                                        answer[1]=y;
+                                                                        console.log('free three circles',answer);
+                                                                        this.$board.find("[data-x='"+x+"'][data-y='"+y+"']").addClass('threeFreeCircles');
+                                                                        return answer;
+                                                                      }
+        };
+          console.log('no free three circles',answer);
+        return answer;
+      };
+
+      this.findTwoAndTwoCrosses = function(){
+        var answer = [-1,-1];
+        for (var x = 4; x < this.size-5; x++) {
+          for (var y = 4; y < this.size-5; y++) {
+            if (this.board[x][y][0] == 0) {
+
+            }
+          }
+        }
+        return answer;
+      };
+
+      this.findTwoAndTwoCircles = function(){
+        var answer = [-1,-1];
+        return answer;
       };
 
       this.addToCircleArray = function(_x,_y){
@@ -166,14 +422,14 @@ $(document).ready(function(){
       };
 
       this.setArrayOfEmptySpaceAroundCircles = function(){
-        console.log(this.circleArray);
+        //console.log(this.circleArray);
         this.arrayOfEmptySpaceAroundCircles = [];
         for (var i = 0; i < this.circleArray.length; i++) {
           var x = this.circleArray[i][0];
           var y = this.circleArray[i][1];
-          console.log(x,y);
-          console.log(this.board[x-1][y-1]);
-          console.log(this.arrayOfEmptySpaceAroundCircles.indexOf([x-1,y-1]));
+          //console.log(x,y);
+          //console.log(this.board[x-1][y-1]);
+          //console.log(this.arrayOfEmptySpaceAroundCircles.indexOf([x-1,y-1]));
 
           if ((x>4) && (y>4) && (this.board[x-1][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x-1,y-1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x-1,y-1]);
           if ((y>4) &&(this.board[x  ][y-1][0]   == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x,y-1])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x,y-1]);
@@ -185,7 +441,7 @@ $(document).ready(function(){
           if ((x>4) &&(this.board[x-1][y  ][0]   == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x-1,y])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x-1,y]);
 
         };
-        console.log('arrayOfEmptySpaceAroundCircles:', this.arrayOfEmptySpaceAroundCircles);
+        //console.log('arrayOfEmptySpaceAroundCircles:', this.arrayOfEmptySpaceAroundCircles);
       };
 
       this.setArrayOfEmptySpaceAroundCrosses = function(){
@@ -245,76 +501,111 @@ $(document).ready(function(){
           };
         };
 
+        // function twoSec(){};
+        // var delay = setTimeout(twoSec, 4000);
+
         $('.cell.active').on('click',function(){
+          if (gameOn == true) {
 
-          // if ((player == 'circle') && ($(this).hasClass('empty') == true)) {
-          //
-          //               $(this).addClass('circle').removeClass('empty');
-          //               console.log('player circle empty');
-          //               game.set_Circle($(this).data('x'),$(this).data('y'));
-          //               game.fillPowerArr();
-          //               game.showPowerArr();
-          //
-          // } else {
-          //
-          // };
+                      if ((player == 'circle') && ($(this).hasClass('empty') == true)) {
 
-          if ((player == 'circle') && ($(this).hasClass('empty') == true)) {
+                                    // $(this).addClass('circle').removeClass('empty');
+                                    //console.log('player circle empty');
+                                    game.set_Circle($(this).data('x'),$(this).data('y'));
+                                    game.fillPowerArr();
+                                    game.showPowerArr();
 
-                        // $(this).addClass('circle').removeClass('empty');
-                        console.log('player circle empty');
-                        game.set_Circle($(this).data('x'),$(this).data('y'));
-                        game.fillPowerArr();
-                        game.showPowerArr();
-                        var x_answer = game.$board.find('.maxPower').eq(0).data('x');
-                        var y_answer = game.$board.find('.maxPower').eq(0).data('y');
 
-                        if (game.findFiveCircles() == true) console.log('KONIEC: 5 kółek!');
+                                    if (game.findFiveCircles() == true) {
+                                      //console.log('KONIEC: 5 kółek!');
+                                      winner = 'circles';
+                                      gameOn = false;
+                                      $('#player').text('!!! OOOOO !!!');
 
-                        game.set_Cross(x_answer,y_answer);
-                        if (game.findFiveCrosses() == true) console.log('KONIEC: 5 krzyżyków!');
+                                    };
 
 
 
-          }
-          else if ((player == 'circle') && ($(this).hasClass('circle') == true)) {
+                                    // cross answer
 
-                        game.remove_Circle($(this).data('x'),$(this).data('y'));
-                        game.fillPowerArr();
-                        game.showPowerArr();
+                                    var x_answer = 0;
+                                    var y_answer = 0;
+                                    if (gameOn == true) {
+                                        var answer = game.findFourCrosses();
+                                        if (answer[0] > -1) {
+                                          x_answer = answer[0];
+                                          y_answer = answer[1];
+                                        } else {
+                                          answer = game.findFourCircles();
+                                          if (answer[0] > -1) {
+                                            x_answer = answer[0];
+                                            y_answer = answer[1];
+                                          } else {
+                                            answer = game.findThreeFreeCrosses();
+                                            if (answer[0] > -1) {
+                                              x_answer = answer[0];
+                                              y_answer = answer[1];
+                                            } else {
+                                              answer = game.findThreeFreeCircles();
+                                              if (answer[0] > -1) {
+                                                x_answer = answer[0];
+                                                y_answer = answer[1];
+                                              } else {
+                                                answer = game.findTwoAndTwoCrosses();
+                                                if (answer[0] > -1) {
+                                                  x_answer = answer[0];
+                                                  y_answer = answer[1];
+                                                } else {
+                                                  answer = game.findTwoAndTwoCircles();
+                                                  if (answer[0] > -1) {
+                                                    x_answer = answer[0];
+                                                    y_answer = answer[1];
+                                                  } else {
+                                                    x_answer = game.$board.find('.maxPower').eq(0).data('x');
+                                                    y_answer = game.$board.find('.maxPower').eq(0).data('y');
+                                                  };
+                                                };
+                                              }
+                                            };
+                                          }
+                                        };
 
-          }
-          else if ((player == 'cross') && ($(this).hasClass('empty') == true)) {
 
-                        // $(this).addClass('cross').removeClass('empty');
-                        game.set_Cross($(this).data('x'),$(this).data('y'));
 
-          }
-          else if ((player == 'cross') && ($(this).hasClass('cross') == true)) {
+                                        game.set_Cross(x_answer,y_answer);
 
-                        game.remove_Cross($(this).data('x'),$(this).data('y'));
+                                        if (game.findFiveCrosses() == true) {
+                                          //console.log('KONIEC: 5 krzyżyków!');
+                                          winner = 'crosses';
+                                          gameOn = false;
+                                          $('#player').text('!!! XXXXX !!!');
+                                        };
+                                    };
 
-          };
 
-          // if (game.crossFlag == true) {
-          //       if ($(this).hasClass('empty') == true) {
-          //         // $(this).addClass('cross').removeClass('empty');
-          //         game.set_Cross($(this).data('x'),$(this).data('y'));
-          //         game.crossFlag = false;
-          //         game.circleFlag = true;
-          //       };
-          //
-          // }
-          // else {
-          //       if ($(this).hasClass('empty') == true) {
-          //         // $(this).addClass('circle').removeClass('empty');
-          //         game.set_Circle($(this).data('x'),$(this).data('y'));
-          //         game.crossFlag = true;
-          //         game.circleFlag = false;
-          //         game.fillPowerArr();
-          //         game.showPowerArr();
-          //       };
-          // }
+
+                      }
+                      else if ((player == 'circle') && ($(this).hasClass('circle') == true)) {
+
+                                    // game.remove_Circle($(this).data('x'),$(this).data('y'));
+                                    // game.fillPowerArr();
+                                    // game.showPowerArr();
+
+                      }
+                      else if ((player == 'cross') && ($(this).hasClass('empty') == true)) {
+
+                                    // $(this).addClass('cross').removeClass('empty');
+                                    // game.set_Cross($(this).data('x'),$(this).data('y'));
+
+                      }
+                      else if ((player == 'cross') && ($(this).hasClass('cross') == true)) {
+
+                                    // game.remove_Cross($(this).data('x'),$(this).data('y'));
+
+                      };
+
+
+          }; // if gameOn
         });
 
       };
@@ -333,7 +624,7 @@ $(document).ready(function(){
           for (var i = 0; i < this.size; i++) {
               for (var j = 0; j < this.size; j++) {
                 if (this.board[i][j][0] == 1) {
-                  console.log('fillPower i=',i," j=",j);
+                  //console.log('fillPower i=',i," j=",j);
                   this.setPower(i,j,'NN',4);
                   this.setPower(i,j,'NE',4);
                   this.setPower(i,j,'EE',4);
@@ -365,7 +656,7 @@ $(document).ready(function(){
         if ((_x < 4) || (_y < 4) || (_x > this.size-5) || (_y > this.size-5)) return;
         switch(true) {
               case (_direction == 'NN'):
-              console.log('NN',this.board[ _x ][ _y-1 ][0]);
+              //console.log('NN',this.board[ _x ][ _y-1 ][0]);
                   if (this.board[ _x ][ _y-1 ][0] == 1) {
                     if (this.board[ _x ][ _y-2 ][0] == 0) this.board[ _x ][ _y-2 ][1] += 4; //dopalacz
                     if ((this.board[ _x ][ _y-2 ][0] == 1) && (this.board[ _x ][ _y-3 ][0] == 0) && (this.board[ _x ][ _y-4 ][0] == 0)) this.board[ _x ][ _y-3 ][1] += 8; //dopalacz
@@ -462,7 +753,8 @@ $(document).ready(function(){
         var max = 0;
         for (var i = 0; i < this.size; i++) {
             for (var j = 0; j < this.size; j++) {
-              //this.$board.find("[data-x='"+i+"'][data-y='"+j+"']").text(this.board[i][j][1]); to show numbers
+              //to show power of position
+              //this.$board.find("[data-x='"+i+"'][data-y='"+j+"']").text(this.board[i][j][1]);
               if (this.board[i][j][1] > max) {
                 max = this.board[i][j][1];
                 this.$board.find("[data-x='"+iMax+"'][data-y='"+jMax+"']").removeClass('maxPower');
@@ -472,7 +764,6 @@ $(document).ready(function(){
               };
             };
         };
-
 
       };
 

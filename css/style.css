@@ -30,12 +30,13 @@
 
 
 #player {
-  width : 50px;
+  width : auto
   height: 50px;
   margin: 10px auto;
-  display: flex;
+  text-align: center;
+  /*display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;*/
   font-size: 60px;
   color : grey;
 }
@@ -43,7 +44,7 @@
 #gameBoard {
   width : 600px;
   height: 600px;
-  margin: 50px auto;
+  margin: 10px auto;
 }
 
 #gameBoard div.cell {
@@ -81,9 +82,16 @@
   color : blue;
   font-weight: bold;
 }
+.threeFreeCrosses {
+  font-style: italic;
+}
+.threeFreeCircles {
+  font-style: underline;
+}
 
 div.cell.noactive {
   visibility: hidden;
+  display:none;
 }
 
 .attention {
