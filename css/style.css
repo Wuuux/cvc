@@ -153,9 +153,9 @@ div.cell.noactive {
 
 .kreska_v_top { top: 0; }
 
-.kreska_v_left { right: 0; }
+.kreska_v_left { width : 150px; right: 0; }
 
-.kreska_v_right { left: 0; }
+.kreska_v_right { width : 150px; left: 0; }
 
 .kreska_h-v_NE,
 .kreska_h-v_NW,
