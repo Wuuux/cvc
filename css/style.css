@@ -95,6 +95,10 @@
   background-image: url('../images/xcircle.png');
 }
 
+#gameBoard div {
+  position: relative;
+}
+
 .maxPower {
   color : blue;
   font-weight: bold;
@@ -125,3 +129,44 @@ div.cell.noactive {
     50%  {visibility: hidden;}
     100%  {visibility: visible;}
 }
+
+#kreska {
+  position: absolute;
+  left: 455px;
+  top: 243px;
+  width : 30px;
+  height: auto;
+}
+
+.kreska_v_bottom,
+.kreska_v_right,
+.kreska_v_left,
+.kreska_v_top
+ {
+  width : 30px;
+  height: auto;
+  position: absolute;
+  z-index: 1;
+}
+
+.kreska_v_bottom {  bottom: 0; }
+
+.kreska_v_top { top: 0; }
+
+.kreska_v_left { right: 0; }
+
+.kreska_v_right { left: 0; }
+
+.kreska_h-v_NE,
+.kreska_h-v_NW,
+.kreska_h-v_SE,
+.kreska_h-v_SW {
+  width : 150px;
+  height: auto;
+  position: absolute;
+  z-index: 1;
+}
+.kreska_h-v_NE { left: 0; bottom: 0; }
+.kreska_h-v_NW { right: 0; bottom: 0; }
+.kreska_h-v_SE { left: 0; top: 0; }
+.kreska_h-v_SW { right: 0; top: 0; }

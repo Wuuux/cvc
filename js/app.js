@@ -201,37 +201,76 @@ $(document).ready(function(){
 
       this.findFiveCircles = function(){
         for (var i = 0; i < this.circleArray.length; i++) {
-          if (   (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NW',5,'circle') == true)
-              || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NN',5,'circle') == true)
-              || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NE',5,'circle') == true)
-              || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'EE',5,'circle') == true)
-              || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SE',5,'circle') == true)
-              || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SS',5,'circle') == true)
-              || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SW',5,'circle') == true)
-              || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'WW',5,'circle') == true))
-              {
-                console.log('five O:', this.circleArray[i][0],this.circleArray[i][1] );
-                return true;
-              }
+          // if (
+          //        (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NW',5,'circle') == true)
+          //     || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NN',5,'circle') == true)
+          //     || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NE',5,'circle') == true)
+          //     || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'EE',5,'circle') == true)
+          //     || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SE',5,'circle') == true)
+          //     || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SS',5,'circle') == true)
+          //     || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SW',5,'circle') == true)
+          //     || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'WW',5,'circle') == true)
+          //   )
+          //     {
+          //       console.log('five O:', this.circleArray[i][0],this.circleArray[i][1] );
+          //       this.$board.find("[data-x='"+this.circleArray[i][0]+"'][data-y='"+this.circleArray[i][1]+"']").html("<img src='images/vertical_blue.png' class='kreska_v'>");
+          //       return true;
+          //     }
+
+              if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NN',5,'circle') == true)
+              { this.$board.find("[data-x='"+this.circleArray[i][0]+"'][data-y='"+this.circleArray[i][1]+"']").html("<img src='images/vertical_blue.png' class='kreska_v_bottom'>"); return true; }
+              if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SS',5,'circle') == true)
+              { this.$board.find("[data-x='"+this.circleArray[i][0]+"'][data-y='"+this.circleArray[i][1]+"']").html("<img src='images/vertical_blue.png' class='kreska_v_top'>"); return true; }
+              if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'WW',5,'circle') == true)
+              { this.$board.find("[data-x='"+this.circleArray[i][0]+"'][data-y='"+this.circleArray[i][1]+"']").html("<img src='images/horizontal_blue.png' class='kreska_v_left'>"); return true; }
+              if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'EE',5,'circle') == true)
+              { this.$board.find("[data-x='"+this.circleArray[i][0]+"'][data-y='"+this.circleArray[i][1]+"']").html("<img src='images/horizontal_blue.png' class='kreska_v_right'>"); return true; }
+              if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NW',5,'circle') == true)
+              { this.$board.find("[data-x='"+this.circleArray[i][0]+"'][data-y='"+this.circleArray[i][1]+"']").html("<img src='images/v-h_blue.png' class='kreska_h-v_NW'>"); return true; }
+              if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NE',5,'circle') == true)
+              { this.$board.find("[data-x='"+this.circleArray[i][0]+"'][data-y='"+this.circleArray[i][1]+"']").html("<img src='images/h-v_blue.png' class='kreska_h-v_NE'>"); return true; }
+              if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SW',5,'circle') == true)
+              { this.$board.find("[data-x='"+this.circleArray[i][0]+"'][data-y='"+this.circleArray[i][1]+"']").html("<img src='images/h-v_blue.png' class='kreska_h-v_SW'>"); return true; }
+              if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SE',5,'circle') == true)
+              { this.$board.find("[data-x='"+this.circleArray[i][0]+"'][data-y='"+this.circleArray[i][1]+"']").html("<img src='images/v-h_blue.png' class='kreska_h-v_SE'>"); return true; }
+
           };
         return false;
       };
 
       this.findFiveCrosses = function(){
         for (var i = 0; i < this.crossArray.length; i++) {
-          if (
-             (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NW',5,'cross') == true)
-          || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NN',5,'cross') == true)
-          || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NE',5,'cross') == true)
-          || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'EE',5,'cross') == true)
-          || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SE',5,'cross') == true)
-          || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SS',5,'cross') == true)
-          || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SW',5,'cross') == true)
-          || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'WW',5,'cross') == true))
-          {
-            console.log('five X:', this.crossArray[i][0],this.crossArray[i][1] );
-            return true;
-          }
+          // if (
+          //    (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NW',5,'cross') == true)
+          // || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NN',5,'cross') == true)
+          // || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NE',5,'cross') == true)
+          // || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'EE',5,'cross') == true)
+          // || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SE',5,'cross') == true)
+          // || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SS',5,'cross') == true)
+          // || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SW',5,'cross') == true)
+          // || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'WW',5,'cross') == true))
+          // {
+          //   console.log('five X:', this.crossArray[i][0],this.crossArray[i][1] );
+          //   return true;
+          // }
+
+          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NN',5,'cross') == true)
+          { this.$board.find("[data-x='"+this.crossArray[i][0]+"'][data-y='"+this.crossArray[i][1]+"']").html("<img src='images/vertical_blue.png' class='kreska_v_bottom'>"); return true; }
+          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SS',5,'cross') == true)
+          { this.$board.find("[data-x='"+this.crossArray[i][0]+"'][data-y='"+this.crossArray[i][1]+"']").html("<img src='images/vertical_blue.png' class='kreska_v_top'>"); return true; }
+          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'WW',5,'cross') == true)
+          { this.$board.find("[data-x='"+this.crossArray[i][0]+"'][data-y='"+this.crossArray[i][1]+"']").html("<img src='images/horizontal_blue.png' class='kreska_v_left'>"); return true; }
+          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'EE',5,'cross') == true)
+          { this.$board.find("[data-x='"+this.crossArray[i][0]+"'][data-y='"+this.crossArray[i][1]+"']").html("<img src='images/horizontal_blue.png' class='kreska_v_right'>"); return true; }
+          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NW',5,'cross') == true)
+          { this.$board.find("[data-x='"+this.crossArray[i][0]+"'][data-y='"+this.crossArray[i][1]+"']").html("<img src='images/v-h_blue.png' class='kreska_h-v_NW'>"); return true; }
+          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NE',5,'cross') == true)
+          { this.$board.find("[data-x='"+this.crossArray[i][0]+"'][data-y='"+this.crossArray[i][1]+"']").html("<img src='images/h-v_blue.png' class='kreska_h-v_NE'>"); return true; }
+          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SW',5,'cross') == true)
+          { this.$board.find("[data-x='"+this.crossArray[i][0]+"'][data-y='"+this.crossArray[i][1]+"']").html("<img src='images/h-v_blue.png' class='kreska_h-v_SW'>"); return true; }
+          if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SE',5,'cross') == true)
+          { this.$board.find("[data-x='"+this.crossArray[i][0]+"'][data-y='"+this.crossArray[i][1]+"']").html("<img src='images/v-h_blue.png' class='kreska_h-v_SE'>"); return true; }
+
         };
         return false;
       };
