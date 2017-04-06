@@ -37,14 +37,31 @@
   /*display: flex;
   justify-content: center;
   align-items: center;*/
-  font-size: 60px;
+  font-size: 20px;
   color : grey;
 }
+#player img {
+  width : 500px;
+  height: 196px;
+}
+
+#info {
+  width : auto
+  height: 50px;
+  margin: 10px auto;
+  text-align: center;
+  /*display: flex;
+  justify-content: center;
+  align-items: center;*/
+  font-size: 40px;
+  color : rgba(186,232,45,1);
+}
+
 
 #gameBoard {
   width : 600px;
   height: 600px;
-  margin: 10px auto;
+  margin: -100px auto 0;
 }
 
 #gameBoard div.cell {

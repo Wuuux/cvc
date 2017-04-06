@@ -520,7 +520,7 @@ $(document).ready(function(){
                                       //console.log('KONIEC: 5 kółek!');
                                       winner = 'circles';
                                       gameOn = false;
-                                      $('#player').text('!!! OOOOO !!!');
+                                      $('#info').html('<h2>O wins!</h2>');
 
                                     };
 
@@ -578,7 +578,7 @@ $(document).ready(function(){
                                           //console.log('KONIEC: 5 krzyżyków!');
                                           winner = 'crosses';
                                           gameOn = false;
-                                          $('#player').text('!!! XXXXX !!!');
+                                          $('#info').html('<h2>X wins!</h2>');
                                         };
                                     };
 
