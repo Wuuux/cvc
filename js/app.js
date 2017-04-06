@@ -12,7 +12,7 @@ $(document).ready(function(){
   // }
 
   var player = 'circle';
-  var gameOn = true;
+  var gameOn = false;
   var winner = '';
 
   $('#start button').on('click',function(){
@@ -24,6 +24,26 @@ $(document).ready(function(){
       window.location.replace("https://github.com/Wuuux/cvc");
     };
   });
+
+  $('#info').on('click',function(){
+    $('#info img').hide();
+    gameOn = true;
+    gameBoard.init(20);
+    gameBoard.clearPrint($('#gameBoard'));
+    gameBoard.circleArray = [];
+    gameBoard.arrayOfEmptySpaceAroundCircles = [];
+    gameBoard.crossArray = [];
+    gameBoard.arrayOfEmptySpaceAroundCrosses = [];
+  });
+
+  $( "#info" ).hover(
+    function() {
+      $('#info img').attr('src','images/fight.png');
+    },
+    function() {
+      $('#info img').attr('src','images/fight_question.png');
+    }
+  );
 
   $('#player').on('click', function(){
     // if (player == 'circle') {
@@ -58,7 +78,6 @@ $(document).ready(function(){
             }
           };
         };
-        console.log('board',this.board);
       };
 
       //
@@ -525,6 +544,7 @@ $(document).ready(function(){
       this.clearPrint = function( _element ){
         var game = this;
         this.$board = $(_element);
+        this.$board.empty();
         var cell;
         for (var y = 0; y < this.size; y++) {
           for (var x = 0; x < this.size; x++) {
@@ -559,7 +579,7 @@ $(document).ready(function(){
                                       //console.log('KONIEC: 5 kółek!');
                                       winner = 'circles';
                                       gameOn = false;
-                                      $('#info').html('<h2>O wins!</h2>');
+                                      $('#info img').show();
 
                                     };
 
@@ -617,7 +637,8 @@ $(document).ready(function(){
                                           //console.log('KONIEC: 5 krzyżyków!');
                                           winner = 'crosses';
                                           gameOn = false;
-                                          $('#info').html('<h2>X wins!</h2>');
+                                          // $('#info').html('<h2>X wins!</h2>');
+                                          $('#info img').show();
                                         };
                                     };
 
