@@ -413,7 +413,41 @@ $(document).ready(function(){
         for (var x = 4; x < this.size-5; x++) {
           for (var y = 4; y < this.size-5; y++) {
             if (this.board[x][y][0] == 0) {
+              var sum = 0;
 
+              if ((this.board[x  ][y-1][0] == 0) && (this.board[x  ][y-2][0] == -1) && (this.board[x  ][y-3][0] == -1) && (this.board[x  ][y-4][0] == 0) && (this.board[x  ][y+1][0] == 0)) sum++;
+              if ((this.board[x+1][y-1][0] == 0) && (this.board[x+2][y-2][0] == -1) && (this.board[x+3][y-3][0] == -1) && (this.board[x+4][y-4][0] == 0) && (this.board[x-1][y+1][0] == 0)) sum++;
+              if ((this.board[x+1][y  ][0] == 0) && (this.board[x+2][y  ][0] == -1) && (this.board[x+3][y  ][0] == -1) && (this.board[x+4][y  ][0] == 0) && (this.board[x-1][y  ][0] == 0)) sum++;
+              if ((this.board[x+1][y+1][0] == 0) && (this.board[x+2][y+2][0] == -1) && (this.board[x+3][y+3][0] == -1) && (this.board[x+4][y+4][0] == 0) && (this.board[x-1][y-1][0] == 0)) sum++;
+              if ((this.board[x  ][y+1][0] == 0) && (this.board[x  ][y+2][0] == -1) && (this.board[x  ][y+3][0] == -1) && (this.board[x  ][y+4][0] == 0) && (this.board[x  ][y-1][0] == 0)) sum++;
+              if ((this.board[x-1][y+1][0] == 0) && (this.board[x-2][y+2][0] == -1) && (this.board[x-2][y+3][0] == -1) && (this.board[x-4][y+4][0] == 0) && (this.board[x+1][y-1][0] == 0)) sum++;
+              if ((this.board[x-1][y  ][0] == 0) && (this.board[x-2][y  ][0] == -1) && (this.board[x-3][y  ][0] == -1) && (this.board[x-4][y  ][0] == 0) && (this.board[x+1][y  ][0] == 0)) sum++;
+              if ((this.board[x-1][y-1][0] == 0) && (this.board[x-2][y-2][0] == -1) && (this.board[x-3][y-3][0] == -1) && (this.board[x-4][y-4][0] == 0) && (this.board[x+1][y+1][0] == 0)) sum++;
+
+              if ((this.board[x  ][y-1][0] == -1) && (this.board[x  ][y-2][0] == 0) && (this.board[x  ][y-3][0] == -1) && (this.board[x  ][y-4][0] == 0) && (this.board[x  ][y+1][0] == 0)) sum++;
+              if ((this.board[x+1][y-1][0] == -1) && (this.board[x+2][y-2][0] == 0) && (this.board[x+3][y-3][0] == -1) && (this.board[x+4][y-4][0] == 0) && (this.board[x-1][y+1][0] == 0)) sum++;
+              if ((this.board[x+1][y  ][0] == -1) && (this.board[x+2][y  ][0] == 0) && (this.board[x+3][y  ][0] == -1) && (this.board[x+4][y  ][0] == 0) && (this.board[x-1][y  ][0] == 0)) sum++;
+              if ((this.board[x+1][y+1][0] == -1) && (this.board[x+2][y+2][0] == 0) && (this.board[x+3][y+3][0] == -1) && (this.board[x+4][y+4][0] == 0) && (this.board[x-1][y-1][0] == 0)) sum++;
+              if ((this.board[x  ][y+1][0] == -1) && (this.board[x  ][y+2][0] == 0) && (this.board[x  ][y+3][0] == -1) && (this.board[x  ][y+4][0] == 0) && (this.board[x  ][y-1][0] == 0)) sum++;
+              if ((this.board[x-1][y+1][0] == -1) && (this.board[x-2][y+2][0] == 0) && (this.board[x-2][y+3][0] == -1) && (this.board[x-4][y+4][0] == 0) && (this.board[x+1][y-1][0] == 0)) sum++;
+              if ((this.board[x-1][y  ][0] == -1) && (this.board[x-2][y  ][0] == 0) && (this.board[x-3][y  ][0] == -1) && (this.board[x-4][y  ][0] == 0) && (this.board[x+1][y  ][0] == 0)) sum++;
+              if ((this.board[x-1][y-1][0] == -1) && (this.board[x-2][y-2][0] == 0) && (this.board[x-3][y-3][0] == -1) && (this.board[x-4][y-4][0] == 0) && (this.board[x+1][y+1][0] == 0)) sum++;
+
+              if ((this.board[x  ][y-1][0] == -1) && (this.board[x  ][y-2][0] == -1) && (this.board[x  ][y-3][0] == 0) && (this.board[x  ][y+1][0] == 0)) sum++;
+              if ((this.board[x+1][y-1][0] == -1) && (this.board[x+2][y-2][0] == -1) && (this.board[x+3][y-3][0] == 0) && (this.board[x-1][y+1][0] == 0)) sum++;
+              if ((this.board[x+1][y  ][0] == -1) && (this.board[x+2][y  ][0] == -1) && (this.board[x+3][y  ][0] == 0) && (this.board[x-1][y  ][0] == 0)) sum++;
+              if ((this.board[x+1][y+1][0] == -1) && (this.board[x+2][y+2][0] == -1) && (this.board[x+3][y+3][0] == 0) && (this.board[x-1][y-1][0] == 0)) sum++;
+              if ((this.board[x  ][y+1][0] == -1) && (this.board[x  ][y+2][0] == -1) && (this.board[x  ][y+3][0] == 0) && (this.board[x  ][y-1][0] == 0)) sum++;
+              if ((this.board[x-1][y+1][0] == -1) && (this.board[x-2][y+2][0] == -1) && (this.board[x-2][y+3][0] == 0) && (this.board[x+1][y-1][0] == 0)) sum++;
+              if ((this.board[x-1][y  ][0] == -1) && (this.board[x-2][y  ][0] == -1) && (this.board[x-3][y  ][0] == 0) && (this.board[x+1][y  ][0] == 0)) sum++;
+              if ((this.board[x-1][y-1][0] == -1) && (this.board[x-2][y-2][0] == -1) && (this.board[x-3][y-3][0] == 0) && (this.board[x+1][y+1][0] == 0)) sum++;
+
+
+              if (sum > 1) {
+                answer[0] = x;
+                answer[1] = y;
+                return answer;
+              }
             }
           }
         }
@@ -422,6 +456,47 @@ $(document).ready(function(){
 
       this.findTwoAndTwoCircles = function(){
         var answer = [-1,-1];
+        for (var x = 4; x < this.size-5; x++) {
+          for (var y = 4; y < this.size-5; y++) {
+            if (this.board[x][y][0] == 0) {
+              var sum = 0;
+
+              if ((this.board[x  ][y-1][0] == 0) && (this.board[x  ][y-2][0] == 1) && (this.board[x  ][y-3][0] == 1) && (this.board[x  ][y-4][0] == 0) && (this.board[x  ][y+1][0] == 0)) sum++;
+              if ((this.board[x+1][y-1][0] == 0) && (this.board[x+2][y-2][0] == 1) && (this.board[x+3][y-3][0] == 1) && (this.board[x+4][y-4][0] == 0) && (this.board[x-1][y+1][0] == 0)) sum++;
+              if ((this.board[x+1][y  ][0] == 0) && (this.board[x+2][y  ][0] == 1) && (this.board[x+3][y  ][0] == 1) && (this.board[x+4][y  ][0] == 0) && (this.board[x-1][y  ][0] == 0)) sum++;
+              if ((this.board[x+1][y+1][0] == 0) && (this.board[x+2][y+2][0] == 1) && (this.board[x+3][y+3][0] == 1) && (this.board[x+4][y+4][0] == 0) && (this.board[x-1][y-1][0] == 0)) sum++;
+              if ((this.board[x  ][y+1][0] == 0) && (this.board[x  ][y+2][0] == 1) && (this.board[x  ][y+3][0] == 1) && (this.board[x  ][y+4][0] == 0) && (this.board[x  ][y-1][0] == 0)) sum++;
+              if ((this.board[x-1][y+1][0] == 0) && (this.board[x-2][y+2][0] == 1) && (this.board[x-2][y+3][0] == 1) && (this.board[x-4][y+4][0] == 0) && (this.board[x+1][y-1][0] == 0)) sum++;
+              if ((this.board[x-1][y  ][0] == 0) && (this.board[x-2][y  ][0] == 1) && (this.board[x-3][y  ][0] == 1) && (this.board[x-4][y  ][0] == 0) && (this.board[x+1][y  ][0] == 0)) sum++;
+              if ((this.board[x-1][y-1][0] == 0) && (this.board[x-2][y-2][0] == 1) && (this.board[x-3][y-3][0] == 1) && (this.board[x-4][y-4][0] == 0) && (this.board[x+1][y+1][0] == 0)) sum++;
+
+              if ((this.board[x  ][y-1][0] == 1) && (this.board[x  ][y-2][0] == 0) && (this.board[x  ][y-3][0] == 1) && (this.board[x  ][y-4][0] == 0) && (this.board[x  ][y+1][0] == 0)) sum++;
+              if ((this.board[x+1][y-1][0] == 1) && (this.board[x+2][y-2][0] == 0) && (this.board[x+3][y-3][0] == 1) && (this.board[x+4][y-4][0] == 0) && (this.board[x-1][y+1][0] == 0)) sum++;
+              if ((this.board[x+1][y  ][0] == 1) && (this.board[x+2][y  ][0] == 0) && (this.board[x+3][y  ][0] == 1) && (this.board[x+4][y  ][0] == 0) && (this.board[x-1][y  ][0] == 0)) sum++;
+              if ((this.board[x+1][y+1][0] == 1) && (this.board[x+2][y+2][0] == 0) && (this.board[x+3][y+3][0] == 1) && (this.board[x+4][y+4][0] == 0) && (this.board[x-1][y-1][0] == 0)) sum++;
+              if ((this.board[x  ][y+1][0] == 1) && (this.board[x  ][y+2][0] == 0) && (this.board[x  ][y+3][0] == 1) && (this.board[x  ][y+4][0] == 0) && (this.board[x  ][y-1][0] == 0)) sum++;
+              if ((this.board[x-1][y+1][0] == 1) && (this.board[x-2][y+2][0] == 0) && (this.board[x-2][y+3][0] == 1) && (this.board[x-4][y+4][0] == 0) && (this.board[x+1][y-1][0] == 0)) sum++;
+              if ((this.board[x-1][y  ][0] == 1) && (this.board[x-2][y  ][0] == 0) && (this.board[x-3][y  ][0] == 1) && (this.board[x-4][y  ][0] == 0) && (this.board[x+1][y  ][0] == 0)) sum++;
+              if ((this.board[x-1][y-1][0] == 1) && (this.board[x-2][y-2][0] == 0) && (this.board[x-3][y-3][0] == 1) && (this.board[x-4][y-4][0] == 0) && (this.board[x+1][y+1][0] == 0)) sum++;
+
+              if ((this.board[x  ][y-1][0] == 1) && (this.board[x  ][y-2][0] == 1) && (this.board[x  ][y-3][0] == 0) && (this.board[x  ][y+1][0] == 0)) sum++;
+              if ((this.board[x+1][y-1][0] == 1) && (this.board[x+2][y-2][0] == 1) && (this.board[x+3][y-3][0] == 0) && (this.board[x-1][y+1][0] == 0)) sum++;
+              if ((this.board[x+1][y  ][0] == 1) && (this.board[x+2][y  ][0] == 1) && (this.board[x+3][y  ][0] == 0) && (this.board[x-1][y  ][0] == 0)) sum++;
+              if ((this.board[x+1][y+1][0] == 1) && (this.board[x+2][y+2][0] == 1) && (this.board[x+3][y+3][0] == 0) && (this.board[x-1][y-1][0] == 0)) sum++;
+              if ((this.board[x  ][y+1][0] == 1) && (this.board[x  ][y+2][0] == 1) && (this.board[x  ][y+3][0] == 0) && (this.board[x  ][y-1][0] == 0)) sum++;
+              if ((this.board[x-1][y+1][0] == 1) && (this.board[x-2][y+2][0] == 1) && (this.board[x-2][y+3][0] == 0) && (this.board[x+1][y-1][0] == 0)) sum++;
+              if ((this.board[x-1][y  ][0] == 1) && (this.board[x-2][y  ][0] == 1) && (this.board[x-3][y  ][0] == 0) && (this.board[x+1][y  ][0] == 0)) sum++;
+              if ((this.board[x-1][y-1][0] == 1) && (this.board[x-2][y-2][0] == 1) && (this.board[x-3][y-3][0] == 0) && (this.board[x+1][y+1][0] == 0)) sum++;
+
+
+              if (sum > 1) {
+                answer[0] = x;
+                answer[1] = y;
+                return answer;
+              }
+            }
+          }
+        }
         return answer;
       };
 
