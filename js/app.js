@@ -220,21 +220,6 @@ $(document).ready(function(){
 
       this.findFiveCircles = function(){
         for (var i = 0; i < this.circleArray.length; i++) {
-          // if (
-          //        (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NW',5,'circle') == true)
-          //     || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NN',5,'circle') == true)
-          //     || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NE',5,'circle') == true)
-          //     || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'EE',5,'circle') == true)
-          //     || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SE',5,'circle') == true)
-          //     || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SS',5,'circle') == true)
-          //     || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'SW',5,'circle') == true)
-          //     || (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'WW',5,'circle') == true)
-          //   )
-          //     {
-          //       console.log('five O:', this.circleArray[i][0],this.circleArray[i][1] );
-          //       this.$board.find("[data-x='"+this.circleArray[i][0]+"'][data-y='"+this.circleArray[i][1]+"']").html("<img src='images/vertical_blue.png' class='kreska_v'>");
-          //       return true;
-          //     }
 
               if (this.findXstringOfValues(this.circleArray[i][0],this.circleArray[i][1],'NN',5,'circle') == true)
               { this.$board.find("[data-x='"+this.circleArray[i][0]+"'][data-y='"+this.circleArray[i][1]+"']").html("<img src='images/vertical_blue.png' class='kreska_v_bottom'>"); return true; }
@@ -259,19 +244,6 @@ $(document).ready(function(){
 
       this.findFiveCrosses = function(){
         for (var i = 0; i < this.crossArray.length; i++) {
-          // if (
-          //    (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NW',5,'cross') == true)
-          // || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NN',5,'cross') == true)
-          // || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NE',5,'cross') == true)
-          // || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'EE',5,'cross') == true)
-          // || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SE',5,'cross') == true)
-          // || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SS',5,'cross') == true)
-          // || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'SW',5,'cross') == true)
-          // || (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'WW',5,'cross') == true))
-          // {
-          //   console.log('five X:', this.crossArray[i][0],this.crossArray[i][1] );
-          //   return true;
-          // }
 
           if (this.findXstringOfValues(this.crossArray[i][0],this.crossArray[i][1],'NN',5,'cross') == true)
           { this.$board.find("[data-x='"+this.crossArray[i][0]+"'][data-y='"+this.crossArray[i][1]+"']").html("<img src='images/vertical_blue.png' class='kreska_v_bottom'>"); return true; }
@@ -374,7 +346,7 @@ $(document).ready(function(){
         for (var i = 0; i < this.arrayOfEmptySpaceAroundCrosses.length; i++) {
           var x = this.arrayOfEmptySpaceAroundCrosses[i][0];
           var y = this.arrayOfEmptySpaceAroundCrosses[i][1];
-          this.$board.find("[data-x='"+x+"'][data-y='"+y+"']").removeClass('threeFreeCrosses');
+
           if (((this.findXstringOfValuesPlusEmpty(x,y,'NW',4,'cross') == true) && (this.board[x+1][y+1][0] == 0))
            || ((this.findXstringOfValuesPlusEmpty(x,y,'NN',4,'cross') == true) && (this.board[x  ][y+1][0] == 0))
            || ((this.findXstringOfValuesPlusEmpty(x,y,'NE',4,'cross') == true) && (this.board[x-1][y+1][0] == 0))
@@ -396,8 +368,6 @@ $(document).ready(function(){
                                                                       {
                                                                         answer[0]=x;
                                                                         answer[1]=y;
-                                                                        //console.log('free three crosses',answer);
-                                                                        this.$board.find("[data-x='"+x+"'][data-y='"+y+"']").addClass('threeFreeCrosses');
                                                                         return answer;
                                                                       }
         };
@@ -411,8 +381,6 @@ $(document).ready(function(){
         for (var i = 0; i < this.arrayOfEmptySpaceAroundCircles.length; i++) {
           var x = this.arrayOfEmptySpaceAroundCircles[i][0];
           var y = this.arrayOfEmptySpaceAroundCircles[i][1];
-          this.$board.find("[data-x='"+x+"'][data-y='"+y+"']").removeClass('threeFreeCircles');
-          console.log(x,y);
           if (((this.findXstringOfValuesPlusEmpty(x,y,'NW',4,'circle') == true) && (this.board[x+1][y+1][0] == 0))
            || ((this.findXstringOfValuesPlusEmpty(x,y,'NN',4,'circle') == true) && (this.board[x  ][y+1][0] == 0))
            || ((this.findXstringOfValuesPlusEmpty(x,y,'NE',4,'circle') == true) && (this.board[x-1][y+1][0] == 0))
@@ -434,12 +402,9 @@ $(document).ready(function(){
                                                                       {
                                                                         answer[0]=x;
                                                                         answer[1]=y;
-                                                                        console.log('free three circles',answer);
-                                                                        this.$board.find("[data-x='"+x+"'][data-y='"+y+"']").addClass('threeFreeCircles');
                                                                         return answer;
                                                                       }
         };
-          console.log('no free three circles',answer);
         return answer;
       };
 
@@ -489,14 +454,14 @@ $(document).ready(function(){
           //console.log(this.board[x-1][y-1]);
           //console.log(this.arrayOfEmptySpaceAroundCircles.indexOf([x-1,y-1]));
 
-          if ((x>4) && (y>4) && (this.board[x-1][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x-1,y-1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x-1,y-1]);
-          if ((y>4) &&(this.board[x  ][y-1][0]   == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x,y-1])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x,y-1]);
-          if ((x<this.size-4) && (y>4) &&(this.board[x+1][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x+1,y-1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x+1,y-1]);
-          if ((x<this.size-4) &&(this.board[x+1][y  ][0]   == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x+1,y])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x+1,y]);
-          if ((x<this.size-4) && (y<this.size-4) &&(this.board[x+1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x+1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x+1,y+1]);
-          if ((y<this.size-4) &&(this.board[x  ][y+1][0]   == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x,y+1])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x,y+1]);
-          if ((x>4) && (y<this.size-4) &&(this.board[x-1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x-1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x-1,y+1]);
-          if ((x>4) &&(this.board[x-1][y  ][0]   == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x-1,y])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x-1,y]);
+          if ((x>4) && (y>4) &&                     (this.board[x-1][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x-1,y-1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x-1,y-1]);
+          if ((y>4) &&                              (this.board[x  ][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x,y-1])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x,y-1]);
+          if ((x<this.size-4) && (y>4) &&           (this.board[x+1][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x+1,y-1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x+1,y-1]);
+          if ((x<this.size-4) &&                    (this.board[x+1][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x+1,y])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x+1,y]);
+          if ((x<this.size-4) && (y<this.size-4) && (this.board[x+1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x+1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x+1,y+1]);
+          if ((y<this.size-4) &&                    (this.board[x  ][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x,y+1])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x,y+1]);
+          if ((x>4) && (y<this.size-4) &&           (this.board[x-1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x-1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x-1,y+1]);
+          if ((x>4) &&                              (this.board[x-1][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x-1,y])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x-1,y]);
 
         };
         //console.log('arrayOfEmptySpaceAroundCircles:', this.arrayOfEmptySpaceAroundCircles);
@@ -571,6 +536,7 @@ $(document).ready(function(){
                                     // $(this).addClass('circle').removeClass('empty');
                                     //console.log('player circle empty');
                                     game.set_Circle($(this).data('x'),$(this).data('y'));
+                                    game.setArrayOfEmptySpaceAroundCrosses();
                                     game.fillPowerArr();
                                     game.showPowerArr();
 
@@ -590,56 +556,56 @@ $(document).ready(function(){
                                     var x_answer = 0;
                                     var y_answer = 0;
                                     if (gameOn == true) {
-                                        var answer = game.findFourCrosses();
-                                        if (answer[0] > -1) {
-                                          x_answer = answer[0];
-                                          y_answer = answer[1];
-                                        } else {
-                                          answer = game.findFourCircles();
-                                          if (answer[0] > -1) {
-                                            x_answer = answer[0];
-                                            y_answer = answer[1];
-                                          } else {
-                                            answer = game.findThreeFreeCrosses();
-                                            if (answer[0] > -1) {
-                                              x_answer = answer[0];
-                                              y_answer = answer[1];
-                                            } else {
-                                              answer = game.findThreeFreeCircles();
-                                              if (answer[0] > -1) {
-                                                x_answer = answer[0];
-                                                y_answer = answer[1];
-                                              } else {
-                                                answer = game.findTwoAndTwoCrosses();
-                                                if (answer[0] > -1) {
-                                                  x_answer = answer[0];
-                                                  y_answer = answer[1];
-                                                } else {
-                                                  answer = game.findTwoAndTwoCircles();
-                                                  if (answer[0] > -1) {
-                                                    x_answer = answer[0];
-                                                    y_answer = answer[1];
-                                                  } else {
-                                                    x_answer = game.$board.find('.maxPower').eq(0).data('x');
-                                                    y_answer = game.$board.find('.maxPower').eq(0).data('y');
-                                                  };
-                                                };
-                                              }
-                                            };
-                                          }
-                                        };
+                                                                  var answer = game.findFourCrosses();
+                                                                  if (answer[0] > -1) {
+                                                                    x_answer = answer[0];
+                                                                    y_answer = answer[1];
+                                                                  } else {
+                                                                    answer = game.findFourCircles();
+                                                                    if (answer[0] > -1) {
+                                                                      x_answer = answer[0];
+                                                                      y_answer = answer[1];
+                                                                    } else {
+                                                                      answer = game.findThreeFreeCrosses();
+                                                                      if (answer[0] > -1) {
+                                                                        x_answer = answer[0];
+                                                                        y_answer = answer[1];
+                                                                      } else {
+                                                                        answer = game.findThreeFreeCircles();
+                                                                        if (answer[0] > -1) {
+                                                                          x_answer = answer[0];
+                                                                          y_answer = answer[1];
+                                                                        } else {
+                                                                          answer = game.findTwoAndTwoCrosses();
+                                                                          if (answer[0] > -1) {
+                                                                            x_answer = answer[0];
+                                                                            y_answer = answer[1];
+                                                                          } else {
+                                                                            answer = game.findTwoAndTwoCircles();
+                                                                            if (answer[0] > -1) {
+                                                                              x_answer = answer[0];
+                                                                              y_answer = answer[1];
+                                                                            } else {
+                                                                              x_answer = game.$board.find('.maxPower').eq(0).data('x');
+                                                                              y_answer = game.$board.find('.maxPower').eq(0).data('y');
+                                                                            };
+                                                                          };
+                                                                        }
+                                                                      };
+                                                                    }
+                                                                  };
 
 
 
-                                        game.set_Cross(x_answer,y_answer);
+                                                                  game.set_Cross(x_answer,y_answer);
 
-                                        if (game.findFiveCrosses() == true) {
-                                          //console.log('KONIEC: 5 krzyżyków!');
-                                          winner = 'crosses';
-                                          gameOn = false;
-                                          // $('#info').html('<h2>X wins!</h2>');
-                                          $('#info img').show();
-                                        };
+                                                                  if (game.findFiveCrosses() == true) {
+                                                                    //console.log('KONIEC: 5 krzyżyków!');
+                                                                    winner = 'crosses';
+                                                                    gameOn = false;
+                                                                    // $('#info').html('<h2>X wins!</h2>');
+                                                                    $('#info img').show();
+                                                                  };
                                     };
 
 
