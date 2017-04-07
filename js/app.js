@@ -36,6 +36,7 @@ $(document).ready(function(){
     gameBoard.arrayOfEmptySpaceAroundCrosses = [];
     gameBoard.arrayOfEmptySpaceAroundCrossesSecondLevel = [];
     gameBoard.arrayOfEmptySpaceAroundCirclesSecondLevel = [];
+    //gameBoard.set_Cross(10,10);
   });
 
   $( "#info" ).hover(
@@ -677,11 +678,11 @@ $(document).ready(function(){
 
           if ((x>4) && (y>4) &&                     (this.board[x-1][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x-1,y-1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x-1,y-1]);
           if ((y>4) &&                              (this.board[x  ][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x,y-1])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x,y-1]);
-          if ((x<this.size-4) && (y>4) &&           (this.board[x+1][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x+1,y-1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x+1,y-1]);
-          if ((x<this.size-4) &&                    (this.board[x+1][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x+1,y])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x+1,y]);
-          if ((x<this.size-4) && (y<this.size-4) && (this.board[x+1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x+1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x+1,y+1]);
-          if ((y<this.size-4) &&                    (this.board[x  ][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x,y+1])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x,y+1]);
-          if ((x>4) && (y<this.size-4) &&           (this.board[x-1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x-1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x-1,y+1]);
+          if ((x<this.size-5) && (y>4) &&           (this.board[x+1][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x+1,y-1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x+1,y-1]);
+          if ((x<this.size-5) &&                    (this.board[x+1][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x+1,y])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x+1,y]);
+          if ((x<this.size-5) && (y<this.size-5) && (this.board[x+1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x+1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x+1,y+1]);
+          if ((y<this.size-5) &&                    (this.board[x  ][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x,y+1])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x,y+1]);
+          if ((x>4) && (y<this.size-5) &&           (this.board[x-1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x-1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCircles.push([x-1,y+1]);
           if ((x>4) &&                              (this.board[x-1][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCircles,[x-1,y])   < 0)) this.arrayOfEmptySpaceAroundCircles.push([x-1,y]);
 
         };
@@ -698,11 +699,11 @@ $(document).ready(function(){
 
           if ((x>4) && (y>4) &&                     (this.board[x-1][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x-1,y-1]) < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x-1,y-1]);
           if ((y>4) &&                              (this.board[x  ][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x,y-1])   < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x,y-1]);
-          if ((x<this.size-4) && (y>4) &&           (this.board[x+1][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x+1,y-1]) < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x+1,y-1]);
-          if ((x<this.size-4) &&                    (this.board[x+1][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x+1,y])   < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x+1,y]);
-          if ((x<this.size-4) && (y<this.size-4) && (this.board[x+1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x+1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x+1,y+1]);
-          if ((y<this.size-4) &&                    (this.board[x  ][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x,y+1])   < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x,y+1]);
-          if ((x>4) && (y<this.size-4) &&           (this.board[x-1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x-1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x-1,y+1]);
+          if ((x<this.size-5) && (y>4) &&           (this.board[x+1][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x+1,y-1]) < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x+1,y-1]);
+          if ((x<this.size-5) &&                    (this.board[x+1][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x+1,y])   < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x+1,y]);
+          if ((x<this.size-5) && (y<this.size-5) && (this.board[x+1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x+1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x+1,y+1]);
+          if ((y<this.size-5) &&                    (this.board[x  ][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x,y+1])   < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x,y+1]);
+          if ((x>4) && (y<this.size-5) &&           (this.board[x-1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x-1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x-1,y+1]);
           if ((x>4) &&                              (this.board[x-1][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x-1,y])   < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x-1,y]);
         };
         this.setArrayOfEmptySpaceAroundCrossesSecondLevel();
@@ -720,11 +721,11 @@ $(document).ready(function(){
 
           if ((x>5) && (y>5) &&                     (this.board[x-1][y-1][0] == 0) && (this.board[x-2][y-2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x-2,y-2]) < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x-2,y-2]);
           if ((y>5) &&                              (this.board[x  ][y-1][0] == 0) && (this.board[x  ][y-2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x,y-2])   < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x,y-2]);
-          if ((x<this.size-5) && (y>5) &&           (this.board[x+1][y-1][0] == 0) && (this.board[x+2][y-2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x+2,y-2]) < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x+2,y-2]);
-          if ((x<this.size-5) &&                    (this.board[x+1][y  ][0] == 0) && (this.board[x+2][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x+2,y])   < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x+2,y]);
-          if ((x<this.size-5) && (y<this.size-5) && (this.board[x+1][y+1][0] == 0) && (this.board[x+2][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x+2,y+2]) < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x+2,y+2]);
-          if ((y<this.size-5) &&                    (this.board[x  ][y+1][0] == 0) && (this.board[x  ][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x,y+2])   < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x,y+2]);
-          if ((x>5) && (y<this.size-5) &&           (this.board[x-1][y+1][0] == 0) && (this.board[x-2][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x-2,y+2]) < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x-2,y+2]);
+          if ((x<this.size-6) && (y>5) &&           (this.board[x+1][y-1][0] == 0) && (this.board[x+2][y-2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x+2,y-2]) < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x+2,y-2]);
+          if ((x<this.size-6) &&                    (this.board[x+1][y  ][0] == 0) && (this.board[x+2][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x+2,y])   < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x+2,y]);
+          if ((x<this.size-6) && (y<this.size-6) && (this.board[x+1][y+1][0] == 0) && (this.board[x+2][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x+2,y+2]) < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x+2,y+2]);
+          if ((y<this.size-6) &&                    (this.board[x  ][y+1][0] == 0) && (this.board[x  ][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x,y+2])   < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x,y+2]);
+          if ((x>5) && (y<this.size-6) &&           (this.board[x-1][y+1][0] == 0) && (this.board[x-2][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x-2,y+2]) < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x-2,y+2]);
           if ((x>5) &&                              (this.board[x-1][y  ][0] == 0) && (this.board[x-2][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x-2,y])   < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x-2,y]);
 
         };
@@ -743,11 +744,11 @@ $(document).ready(function(){
 
           if ((x>5) && (y>5) &&                     (this.board[x-1][y-1][0] == 0) && (this.board[x-2][y-2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x-2,y-2]) < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x-2,y-2]);
           if ((y>5) &&                              (this.board[x  ][y-1][0] == 0) && (this.board[x  ][y-2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x,y-2])   < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x,y-2]);
-          if ((x<this.size-5) && (y>5) &&           (this.board[x+1][y-1][0] == 0) && (this.board[x+2][y-2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x+2,y-2]) < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x+2,y-2]);
-          if ((x<this.size-5) &&                    (this.board[x+1][y  ][0] == 0) && (this.board[x+2][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x+2,y])   < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x+2,y]);
-          if ((x<this.size-5) && (y<this.size-5) && (this.board[x+1][y+1][0] == 0) && (this.board[x+2][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x+2,y+2]) < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x+2,y+2]);
-          if ((y<this.size-5) &&                    (this.board[x  ][y+1][0] == 0) && (this.board[x  ][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x,y+2])   < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x,y+2]);
-          if ((x>5) && (y<this.size-5) &&           (this.board[x-1][y+1][0] == 0) && (this.board[x-2][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x-2,y+2]) < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x-2,y+2]);
+          if ((x<this.size-6) && (y>5) &&           (this.board[x+1][y-1][0] == 0) && (this.board[x+2][y-2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x+2,y-2]) < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x+2,y-2]);
+          if ((x<this.size-6) &&                    (this.board[x+1][y  ][0] == 0) && (this.board[x+2][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x+2,y])   < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x+2,y]);
+          if ((x<this.size-6) && (y<this.size-6) && (this.board[x+1][y+1][0] == 0) && (this.board[x+2][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x+2,y+2]) < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x+2,y+2]);
+          if ((y<this.size-6) &&                    (this.board[x  ][y+1][0] == 0) && (this.board[x  ][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x,y+2])   < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x,y+2]);
+          if ((x>5) && (y<this.size-6) &&           (this.board[x-1][y+1][0] == 0) && (this.board[x-2][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x-2,y+2]) < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x-2,y+2]);
           if ((x>5) &&                              (this.board[x-1][y  ][0] == 0) && (this.board[x-2][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x-2,y])   < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x-2,y]);
 
         };
@@ -1088,6 +1089,7 @@ $(document).ready(function(){
    gameBoard = new GameBoard();
    gameBoard.init(20);
    gameBoard.clearPrint($('#gameBoard'));
+   //gameBoard.set_Cross(10,10);
 
 
 
