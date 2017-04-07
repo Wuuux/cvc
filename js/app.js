@@ -26,7 +26,7 @@ $(document).ready(function(){
   });
 
   $('#info').on('click',function(){
-    $('#info img').hide();
+    $('#info img.fight').hide();
     gameOn = true;
     gameBoard.init(20);
     gameBoard.clearPrint($('#gameBoard'));
@@ -34,14 +34,16 @@ $(document).ready(function(){
     gameBoard.arrayOfEmptySpaceAroundCircles = [];
     gameBoard.crossArray = [];
     gameBoard.arrayOfEmptySpaceAroundCrosses = [];
+    gameBoard.arrayOfEmptySpaceAroundCrossesSecondLevel = [];
+    gameBoard.arrayOfEmptySpaceAroundCirclesSecondLevel = [];
   });
 
   $( "#info" ).hover(
     function() {
-      $('#info img').attr('src','images/fight.png');
+      $('#info img.fight').attr('src','images/fight.png');
     },
     function() {
-      $('#info img').attr('src','images/fight_question.png');
+      $('#info img.fight').attr('src','images/fight_question.png');
     }
   );
 
@@ -63,9 +65,11 @@ $(document).ready(function(){
       this.crossFlag = false;
       this.circleFlag = true;
       this.circleArray = [];
-      this.arrayOfEmptySpaceAroundCircles = [];
       this.crossArray = [];
+      this.arrayOfEmptySpaceAroundCircles = [];
       this.arrayOfEmptySpaceAroundCrosses = [];
+      this.arrayOfEmptySpaceAroundCrossesSecondLevel = [];
+      this.arrayOfEmptySpaceAroundCirclesSecondLevel = [];
 
       this.init = function( _size ){
         this.size = _size;
@@ -500,6 +504,148 @@ $(document).ready(function(){
         return answer;
       };
 
+      this.findTwoCrosses = function(){
+        var answer = [-1,-1];
+
+        for (var i = 0; i < this.arrayOfEmptySpaceAroundCrossesSecondLevel.length; i++) {
+          var x = this.arrayOfEmptySpaceAroundCrossesSecondLevel[i][0];
+          var y = this.arrayOfEmptySpaceAroundCrossesSecondLevel[i][1];
+
+
+
+            if (this.board[x][y][0] == 0) {
+              var flag = false;
+
+              if ((this.board[x  ][y-1][0] == 0) && (this.board[x  ][y-2][0] == -1) && (this.board[x  ][y-3][0] == -1) && (this.board[x  ][y-4][0] == 0) && (this.board[x  ][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y-1][0] == 0) && (this.board[x+2][y-2][0] == -1) && (this.board[x+3][y-3][0] == -1) && (this.board[x+4][y-4][0] == 0) && (this.board[x-1][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y  ][0] == 0) && (this.board[x+2][y  ][0] == -1) && (this.board[x+3][y  ][0] == -1) && (this.board[x+4][y  ][0] == 0) && (this.board[x-1][y  ][0] == 0)) flag=true;
+              if ((this.board[x+1][y+1][0] == 0) && (this.board[x+2][y+2][0] == -1) && (this.board[x+3][y+3][0] == -1) && (this.board[x+4][y+4][0] == 0) && (this.board[x-1][y-1][0] == 0)) flag=true;
+              if ((this.board[x  ][y+1][0] == 0) && (this.board[x  ][y+2][0] == -1) && (this.board[x  ][y+3][0] == -1) && (this.board[x  ][y+4][0] == 0) && (this.board[x  ][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y+1][0] == 0) && (this.board[x-2][y+2][0] == -1) && (this.board[x-2][y+3][0] == -1) && (this.board[x-4][y+4][0] == 0) && (this.board[x+1][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y  ][0] == 0) && (this.board[x-2][y  ][0] == -1) && (this.board[x-3][y  ][0] == -1) && (this.board[x-4][y  ][0] == 0) && (this.board[x+1][y  ][0] == 0)) flag=true;
+              if ((this.board[x-1][y-1][0] == 0) && (this.board[x-2][y-2][0] == -1) && (this.board[x-3][y-3][0] == -1) && (this.board[x-4][y-4][0] == 0) && (this.board[x+1][y+1][0] == 0)) flag=true;
+
+              if ((this.board[x  ][y-1][0] == -1) && (this.board[x  ][y-2][0] == 0) && (this.board[x  ][y-3][0] == -1) && (this.board[x  ][y-4][0] == 0) && (this.board[x  ][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y-1][0] == -1) && (this.board[x+2][y-2][0] == 0) && (this.board[x+3][y-3][0] == -1) && (this.board[x+4][y-4][0] == 0) && (this.board[x-1][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y  ][0] == -1) && (this.board[x+2][y  ][0] == 0) && (this.board[x+3][y  ][0] == -1) && (this.board[x+4][y  ][0] == 0) && (this.board[x-1][y  ][0] == 0)) flag=true;
+              if ((this.board[x+1][y+1][0] == -1) && (this.board[x+2][y+2][0] == 0) && (this.board[x+3][y+3][0] == -1) && (this.board[x+4][y+4][0] == 0) && (this.board[x-1][y-1][0] == 0)) flag=true;
+              if ((this.board[x  ][y+1][0] == -1) && (this.board[x  ][y+2][0] == 0) && (this.board[x  ][y+3][0] == -1) && (this.board[x  ][y+4][0] == 0) && (this.board[x  ][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y+1][0] == -1) && (this.board[x-2][y+2][0] == 0) && (this.board[x-2][y+3][0] == -1) && (this.board[x-4][y+4][0] == 0) && (this.board[x+1][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y  ][0] == -1) && (this.board[x-2][y  ][0] == 0) && (this.board[x-3][y  ][0] == -1) && (this.board[x-4][y  ][0] == 0) && (this.board[x+1][y  ][0] == 0)) flag=true;
+              if ((this.board[x-1][y-1][0] == -1) && (this.board[x-2][y-2][0] == 0) && (this.board[x-3][y-3][0] == -1) && (this.board[x-4][y-4][0] == 0) && (this.board[x+1][y+1][0] == 0)) flag=true;
+
+              if ((this.board[x  ][y-1][0] == -1) && (this.board[x  ][y-2][0] == -1) && (this.board[x  ][y-3][0] == 0) && (this.board[x  ][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y-1][0] == -1) && (this.board[x+2][y-2][0] == -1) && (this.board[x+3][y-3][0] == 0) && (this.board[x-1][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y  ][0] == -1) && (this.board[x+2][y  ][0] == -1) && (this.board[x+3][y  ][0] == 0) && (this.board[x-1][y  ][0] == 0)) flag=true;
+              if ((this.board[x+1][y+1][0] == -1) && (this.board[x+2][y+2][0] == -1) && (this.board[x+3][y+3][0] == 0) && (this.board[x-1][y-1][0] == 0)) flag=true;
+              if ((this.board[x  ][y+1][0] == -1) && (this.board[x  ][y+2][0] == -1) && (this.board[x  ][y+3][0] == 0) && (this.board[x  ][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y+1][0] == -1) && (this.board[x-2][y+2][0] == -1) && (this.board[x-2][y+3][0] == 0) && (this.board[x+1][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y  ][0] == -1) && (this.board[x-2][y  ][0] == -1) && (this.board[x-3][y  ][0] == 0) && (this.board[x+1][y  ][0] == 0)) flag=true;
+              if ((this.board[x-1][y-1][0] == -1) && (this.board[x-2][y-2][0] == -1) && (this.board[x-3][y-3][0] == 0) && (this.board[x+1][y+1][0] == 0)) flag=true;
+
+              if (flag == true) {
+                answer[0]=x;
+                answer[1]=y;
+                return answer;
+              }
+
+            }
+          }
+
+        return answer;
+      };
+
+
+      this.findTwoCircles = function(){
+        var answer = [-1,-1];
+
+        for (var i = 0; i < this.arrayOfEmptySpaceAroundCircles.length; i++) {
+          var x = this.arrayOfEmptySpaceAroundCircles[i][0];
+          var y = this.arrayOfEmptySpaceAroundCircles[i][1];
+            if (this.board[x][y][0] == 0) {
+              var flag = false;
+
+              if ((this.board[x  ][y-1][0] == 1) && (this.board[x  ][y-2][0] == 1) && (this.board[x  ][y-3][0] == 0) && (this.board[x  ][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y-1][0] == 1) && (this.board[x+2][y-2][0] == 1) && (this.board[x+3][y-3][0] == 0) && (this.board[x-1][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y  ][0] == 1) && (this.board[x+2][y  ][0] == 1) && (this.board[x+3][y  ][0] == 0) && (this.board[x-1][y  ][0] == 0)) flag=true;
+              if ((this.board[x+1][y+1][0] == 1) && (this.board[x+2][y+2][0] == 1) && (this.board[x+3][y+3][0] == 0) && (this.board[x-1][y-1][0] == 0)) flag=true;
+              if ((this.board[x  ][y+1][0] == 1) && (this.board[x  ][y+2][0] == 1) && (this.board[x  ][y+3][0] == 0) && (this.board[x  ][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y+1][0] == 1) && (this.board[x-2][y+2][0] == 1) && (this.board[x-2][y+3][0] == 0) && (this.board[x+1][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y  ][0] == 1) && (this.board[x-2][y  ][0] == 1) && (this.board[x-3][y  ][0] == 0) && (this.board[x+1][y  ][0] == 0)) flag=true;
+              if ((this.board[x-1][y-1][0] == 1) && (this.board[x-2][y-2][0] == 1) && (this.board[x-3][y-3][0] == 0) && (this.board[x+1][y+1][0] == 0)) flag=true;
+
+              if ((this.board[x  ][y-1][0] == 1) && (this.board[x  ][y-2][0] == 0) && (this.board[x  ][y-3][0] == 1) && (this.board[x  ][y-4][0] == 0) && (this.board[x  ][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y-1][0] == 1) && (this.board[x+2][y-2][0] == 0) && (this.board[x+3][y-3][0] == 1) && (this.board[x+4][y-4][0] == 0) && (this.board[x-1][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y  ][0] == 1) && (this.board[x+2][y  ][0] == 0) && (this.board[x+3][y  ][0] == 1) && (this.board[x+4][y  ][0] == 0) && (this.board[x-1][y  ][0] == 0)) flag=true;
+              if ((this.board[x+1][y+1][0] == 1) && (this.board[x+2][y+2][0] == 0) && (this.board[x+3][y+3][0] == 1) && (this.board[x+4][y+4][0] == 0) && (this.board[x-1][y-1][0] == 0)) flag=true;
+              if ((this.board[x  ][y+1][0] == 1) && (this.board[x  ][y+2][0] == 0) && (this.board[x  ][y+3][0] == 1) && (this.board[x  ][y+4][0] == 0) && (this.board[x  ][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y+1][0] == 1) && (this.board[x-2][y+2][0] == 0) && (this.board[x-2][y+3][0] == 1) && (this.board[x-4][y+4][0] == 0) && (this.board[x+1][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y  ][0] == 1) && (this.board[x-2][y  ][0] == 0) && (this.board[x-3][y  ][0] == 1) && (this.board[x-4][y  ][0] == 0) && (this.board[x+1][y  ][0] == 0)) flag=true;
+              if ((this.board[x-1][y-1][0] == 1) && (this.board[x-2][y-2][0] == 0) && (this.board[x-3][y-3][0] == 1) && (this.board[x-4][y-4][0] == 0) && (this.board[x+1][y+1][0] == 0)) flag=true;
+
+              if ((this.board[x  ][y-1][0] == 0) && (this.board[x  ][y-2][0] == 1) && (this.board[x  ][y-3][0] == 1) && (this.board[x  ][y-4][0] == 0) && (this.board[x  ][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y-1][0] == 0) && (this.board[x+2][y-2][0] == 1) && (this.board[x+3][y-3][0] == 1) && (this.board[x+4][y-4][0] == 0) && (this.board[x-1][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y  ][0] == 0) && (this.board[x+2][y  ][0] == 1) && (this.board[x+3][y  ][0] == 1) && (this.board[x+4][y  ][0] == 0) && (this.board[x-1][y  ][0] == 0)) flag=true;
+              if ((this.board[x+1][y+1][0] == 0) && (this.board[x+2][y+2][0] == 1) && (this.board[x+3][y+3][0] == 1) && (this.board[x+4][y+4][0] == 0) && (this.board[x-1][y-1][0] == 0)) flag=true;
+              if ((this.board[x  ][y+1][0] == 0) && (this.board[x  ][y+2][0] == 1) && (this.board[x  ][y+3][0] == 1) && (this.board[x  ][y+4][0] == 0) && (this.board[x  ][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y+1][0] == 0) && (this.board[x-2][y+2][0] == 1) && (this.board[x-2][y+3][0] == 1) && (this.board[x-4][y+4][0] == 0) && (this.board[x+1][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y  ][0] == 0) && (this.board[x-2][y  ][0] == 1) && (this.board[x-3][y  ][0] == 1) && (this.board[x-4][y  ][0] == 0) && (this.board[x+1][y  ][0] == 0)) flag=true;
+              if ((this.board[x-1][y-1][0] == 0) && (this.board[x-2][y-2][0] == 1) && (this.board[x-3][y-3][0] == 1) && (this.board[x-4][y-4][0] == 0) && (this.board[x+1][y+1][0] == 0)) flag=true;
+
+              if (flag == true) {
+                answer[0]=x;
+                answer[1]=y;
+                return answer;
+              }
+
+            }
+          }
+
+        for (var i = 0; i < this.arrayOfEmptySpaceAroundCirclesSecondLevel.length; i++) {
+          var x = this.arrayOfEmptySpaceAroundCirclesSecondLevel[i][0];
+          var y = this.arrayOfEmptySpaceAroundCirclesSecondLevel[i][1];
+            if (this.board[x][y][0] == 0) {
+              var flag = false;
+
+              if ((this.board[x  ][y-1][0] == 1) && (this.board[x  ][y-2][0] == 1) && (this.board[x  ][y-3][0] == 0) && (this.board[x  ][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y-1][0] == 1) && (this.board[x+2][y-2][0] == 1) && (this.board[x+3][y-3][0] == 0) && (this.board[x-1][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y  ][0] == 1) && (this.board[x+2][y  ][0] == 1) && (this.board[x+3][y  ][0] == 0) && (this.board[x-1][y  ][0] == 0)) flag=true;
+              if ((this.board[x+1][y+1][0] == 1) && (this.board[x+2][y+2][0] == 1) && (this.board[x+3][y+3][0] == 0) && (this.board[x-1][y-1][0] == 0)) flag=true;
+              if ((this.board[x  ][y+1][0] == 1) && (this.board[x  ][y+2][0] == 1) && (this.board[x  ][y+3][0] == 0) && (this.board[x  ][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y+1][0] == 1) && (this.board[x-2][y+2][0] == 1) && (this.board[x-2][y+3][0] == 0) && (this.board[x+1][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y  ][0] == 1) && (this.board[x-2][y  ][0] == 1) && (this.board[x-3][y  ][0] == 0) && (this.board[x+1][y  ][0] == 0)) flag=true;
+              if ((this.board[x-1][y-1][0] == 1) && (this.board[x-2][y-2][0] == 1) && (this.board[x-3][y-3][0] == 0) && (this.board[x+1][y+1][0] == 0)) flag=true;
+
+              if ((this.board[x  ][y-1][0] == 1) && (this.board[x  ][y-2][0] == 0) && (this.board[x  ][y-3][0] == 1) && (this.board[x  ][y-4][0] == 0) && (this.board[x  ][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y-1][0] == 1) && (this.board[x+2][y-2][0] == 0) && (this.board[x+3][y-3][0] == 1) && (this.board[x+4][y-4][0] == 0) && (this.board[x-1][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y  ][0] == 1) && (this.board[x+2][y  ][0] == 0) && (this.board[x+3][y  ][0] == 1) && (this.board[x+4][y  ][0] == 0) && (this.board[x-1][y  ][0] == 0)) flag=true;
+              if ((this.board[x+1][y+1][0] == 1) && (this.board[x+2][y+2][0] == 0) && (this.board[x+3][y+3][0] == 1) && (this.board[x+4][y+4][0] == 0) && (this.board[x-1][y-1][0] == 0)) flag=true;
+              if ((this.board[x  ][y+1][0] == 1) && (this.board[x  ][y+2][0] == 0) && (this.board[x  ][y+3][0] == 1) && (this.board[x  ][y+4][0] == 0) && (this.board[x  ][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y+1][0] == 1) && (this.board[x-2][y+2][0] == 0) && (this.board[x-2][y+3][0] == 1) && (this.board[x-4][y+4][0] == 0) && (this.board[x+1][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y  ][0] == 1) && (this.board[x-2][y  ][0] == 0) && (this.board[x-3][y  ][0] == 1) && (this.board[x-4][y  ][0] == 0) && (this.board[x+1][y  ][0] == 0)) flag=true;
+              if ((this.board[x-1][y-1][0] == 1) && (this.board[x-2][y-2][0] == 0) && (this.board[x-3][y-3][0] == 1) && (this.board[x-4][y-4][0] == 0) && (this.board[x+1][y+1][0] == 0)) flag=true;
+
+              if ((this.board[x  ][y-1][0] == 0) && (this.board[x  ][y-2][0] == 1) && (this.board[x  ][y-3][0] == 1) && (this.board[x  ][y-4][0] == 0) && (this.board[x  ][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y-1][0] == 0) && (this.board[x+2][y-2][0] == 1) && (this.board[x+3][y-3][0] == 1) && (this.board[x+4][y-4][0] == 0) && (this.board[x-1][y+1][0] == 0)) flag=true;
+              if ((this.board[x+1][y  ][0] == 0) && (this.board[x+2][y  ][0] == 1) && (this.board[x+3][y  ][0] == 1) && (this.board[x+4][y  ][0] == 0) && (this.board[x-1][y  ][0] == 0)) flag=true;
+              if ((this.board[x+1][y+1][0] == 0) && (this.board[x+2][y+2][0] == 1) && (this.board[x+3][y+3][0] == 1) && (this.board[x+4][y+4][0] == 0) && (this.board[x-1][y-1][0] == 0)) flag=true;
+              if ((this.board[x  ][y+1][0] == 0) && (this.board[x  ][y+2][0] == 1) && (this.board[x  ][y+3][0] == 1) && (this.board[x  ][y+4][0] == 0) && (this.board[x  ][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y+1][0] == 0) && (this.board[x-2][y+2][0] == 1) && (this.board[x-2][y+3][0] == 1) && (this.board[x-4][y+4][0] == 0) && (this.board[x+1][y-1][0] == 0)) flag=true;
+              if ((this.board[x-1][y  ][0] == 0) && (this.board[x-2][y  ][0] == 1) && (this.board[x-3][y  ][0] == 1) && (this.board[x-4][y  ][0] == 0) && (this.board[x+1][y  ][0] == 0)) flag=true;
+              if ((this.board[x-1][y-1][0] == 0) && (this.board[x-2][y-2][0] == 1) && (this.board[x-3][y-3][0] == 1) && (this.board[x-4][y-4][0] == 0) && (this.board[x+1][y+1][0] == 0)) flag=true;
+
+              if (flag == true) {
+                answer[0]=x;
+                answer[1]=y;
+                return answer;
+              }
+
+            }
+          }
+
+        return answer;
+      };
+
       this.addToCircleArray = function(_x,_y){
        this.circleArray.push([_x,_y]);
       };
@@ -540,6 +686,7 @@ $(document).ready(function(){
 
         };
         //console.log('arrayOfEmptySpaceAroundCircles:', this.arrayOfEmptySpaceAroundCircles);
+        this.setArrayOfEmptySpaceAroundCirclesSecondLevel();
       };
 
       this.setArrayOfEmptySpaceAroundCrosses = function(){
@@ -549,15 +696,62 @@ $(document).ready(function(){
           var x = this.crossArray[i][0];
           var y = this.crossArray[i][1];
 
-          if ((x>4) && (y>4) && (this.board[x-1][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x-1,y-1]) < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x-1,y-1]);
-          if ((y>4) &&(this.board[x  ][y-1][0]   == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x,y-1])   < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x,y-1]);
-          if ((x<this.size-4) && (y>4) &&(this.board[x+1][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x+1,y-1]) < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x+1,y-1]);
-          if ((x<this.size-4) &&(this.board[x+1][y  ][0]   == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x+1,y])   < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x+1,y]);
-          if ((x<this.size-4) && (y<this.size-4) &&(this.board[x+1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x+1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x+1,y+1]);
-          if ((y<this.size-4) &&(this.board[x  ][y+1][0]   == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x,y+1])   < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x,y+1]);
-          if ((x>4) && (y<this.size-4) &&(this.board[x-1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x-1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x-1,y+1]);
-          if ((x>4) &&(this.board[x-1][y  ][0]   == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x-1,y])   < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x-1,y]);
+          if ((x>4) && (y>4) &&                     (this.board[x-1][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x-1,y-1]) < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x-1,y-1]);
+          if ((y>4) &&                              (this.board[x  ][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x,y-1])   < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x,y-1]);
+          if ((x<this.size-4) && (y>4) &&           (this.board[x+1][y-1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x+1,y-1]) < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x+1,y-1]);
+          if ((x<this.size-4) &&                    (this.board[x+1][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x+1,y])   < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x+1,y]);
+          if ((x<this.size-4) && (y<this.size-4) && (this.board[x+1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x+1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x+1,y+1]);
+          if ((y<this.size-4) &&                    (this.board[x  ][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x,y+1])   < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x,y+1]);
+          if ((x>4) && (y<this.size-4) &&           (this.board[x-1][y+1][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x-1,y+1]) < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x-1,y+1]);
+          if ((x>4) &&                              (this.board[x-1][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrosses,[x-1,y])   < 0)) this.arrayOfEmptySpaceAroundCrosses.push([x-1,y]);
         };
+        this.setArrayOfEmptySpaceAroundCrossesSecondLevel();
+      };
+
+      this.setArrayOfEmptySpaceAroundCirclesSecondLevel = function(){
+        //console.log(this.circleArray);
+        this.arrayOfEmptySpaceAroundCirclesSecondLevel = [];
+        for (var i = 0; i < this.circleArray.length; i++) {
+          var x = this.circleArray[i][0];
+          var y = this.circleArray[i][1];
+          //console.log(x,y);
+          //console.log(this.board[x-1][y-1]);
+          //console.log(this.arrayOfEmptySpaceAroundCircles.indexOf([x-1,y-1]));
+
+          if ((x>5) && (y>5) &&                     (this.board[x-1][y-1][0] == 0) && (this.board[x-2][y-2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x-2,y-2]) < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x-2,y-2]);
+          if ((y>5) &&                              (this.board[x  ][y-1][0] == 0) && (this.board[x  ][y-2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x,y-2])   < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x,y-2]);
+          if ((x<this.size-5) && (y>5) &&           (this.board[x+1][y-1][0] == 0) && (this.board[x+2][y-2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x+2,y-2]) < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x+2,y-2]);
+          if ((x<this.size-5) &&                    (this.board[x+1][y  ][0] == 0) && (this.board[x+2][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x+2,y])   < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x+2,y]);
+          if ((x<this.size-5) && (y<this.size-5) && (this.board[x+1][y+1][0] == 0) && (this.board[x+2][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x+2,y+2]) < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x+2,y+2]);
+          if ((y<this.size-5) &&                    (this.board[x  ][y+1][0] == 0) && (this.board[x  ][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x,y+2])   < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x,y+2]);
+          if ((x>5) && (y<this.size-5) &&           (this.board[x-1][y+1][0] == 0) && (this.board[x-2][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x-2,y+2]) < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x-2,y+2]);
+          if ((x>5) &&                              (this.board[x-1][y  ][0] == 0) && (this.board[x-2][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCirclesSecondLevel,[x-2,y])   < 0)) this.arrayOfEmptySpaceAroundCirclesSecondLevel.push([x-2,y]);
+
+        };
+        //console.log('arrayOfEmptySpaceAroundCircles:', this.arrayOfEmptySpaceAroundCircles);
+      };
+
+      this.setArrayOfEmptySpaceAroundCrossesSecondLevel = function(){
+        //console.log(this.circleArray);
+        this.arrayOfEmptySpaceAroundCrossesSecondLevel = [];
+        for (var i = 0; i < this.circleArray.length; i++) {
+          var x = this.circleArray[i][0];
+          var y = this.circleArray[i][1];
+          //console.log(x,y);
+          //console.log(this.board[x-1][y-1]);
+          //console.log(this.arrayOfEmptySpaceAroundCircles.indexOf([x-1,y-1]));
+
+          if ((x>5) && (y>5) &&                     (this.board[x-1][y-1][0] == 0) && (this.board[x-2][y-2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x-2,y-2]) < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x-2,y-2]);
+          if ((y>5) &&                              (this.board[x  ][y-1][0] == 0) && (this.board[x  ][y-2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x,y-2])   < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x,y-2]);
+          if ((x<this.size-5) && (y>5) &&           (this.board[x+1][y-1][0] == 0) && (this.board[x+2][y-2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x+2,y-2]) < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x+2,y-2]);
+          if ((x<this.size-5) &&                    (this.board[x+1][y  ][0] == 0) && (this.board[x+2][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x+2,y])   < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x+2,y]);
+          if ((x<this.size-5) && (y<this.size-5) && (this.board[x+1][y+1][0] == 0) && (this.board[x+2][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x+2,y+2]) < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x+2,y+2]);
+          if ((y<this.size-5) &&                    (this.board[x  ][y+1][0] == 0) && (this.board[x  ][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x,y+2])   < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x,y+2]);
+          if ((x>5) && (y<this.size-5) &&           (this.board[x-1][y+1][0] == 0) && (this.board[x-2][y+2][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x-2,y+2]) < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x-2,y+2]);
+          if ((x>5) &&                              (this.board[x-1][y  ][0] == 0) && (this.board[x-2][y  ][0] == 0) && (arrInArr(this.arrayOfEmptySpaceAroundCrossesSecondLevel,[x-2,y])   < 0)) this.arrayOfEmptySpaceAroundCrossesSecondLevel.push([x-2,y]);
+
+        };
+        //console.log('arrayOfEmptySpaceAroundCircles:', this.arrayOfEmptySpaceAroundCircles);
       };
 
       this.set_Circle = function( _x , _y ){
@@ -612,6 +806,7 @@ $(document).ready(function(){
                                     //console.log('player circle empty');
                                     game.set_Circle($(this).data('x'),$(this).data('y'));
                                     game.setArrayOfEmptySpaceAroundCrosses();
+                                    game.setArrayOfEmptySpaceAroundCircles();
                                     game.fillPowerArr();
                                     game.showPowerArr();
 
@@ -661,6 +856,22 @@ $(document).ready(function(){
                                                                               x_answer = answer[0];
                                                                               y_answer = answer[1];
                                                                             } else {
+                                                                              // defense first!
+                                                                              // answer = game.findTwoCircles();
+                                                                              // if (answer[0] > -1) {
+                                                                              //   x_answer = answer[0];
+                                                                              //   y_answer = answer[1];
+                                                                              // } else {
+                                                                              //   answer = game.findTwoCrosses();
+                                                                              //   if (answer[0] > -1) {
+                                                                              //     x_answer = answer[0];
+                                                                              //     y_answer = answer[1];
+                                                                              //   } else {
+                                                                              //     x_answer = game.$board.find('.maxPower').eq(0).data('x');
+                                                                              //     y_answer = game.$board.find('.maxPower').eq(0).data('y');
+                                                                              //   }
+                                                                              // };
+
                                                                               x_answer = game.$board.find('.maxPower').eq(0).data('x');
                                                                               y_answer = game.$board.find('.maxPower').eq(0).data('y');
                                                                             };
@@ -754,14 +965,16 @@ $(document).ready(function(){
       };
 
       this.setPower = function(_x,_y, _direction, _power){
+        var extraPower = 0;
+        var step = 2;
         if ((_x < 4) || (_y < 4) || (_x > this.size-5) || (_y > this.size-5)) return;
         switch(true) {
               case (_direction == 'NN'):
               //console.log('NN',this.board[ _x ][ _y-1 ][0]);
                   if (this.board[ _x ][ _y-1 ][0] == 1) {
-                    if (this.board[ _x ][ _y-2 ][0] == 0) this.board[ _x ][ _y-2 ][1] += 4; //dopalacz
-                    if ((this.board[ _x ][ _y-2 ][0] == 1) && (this.board[ _x ][ _y-3 ][0] == 0) && (this.board[ _x ][ _y-4 ][0] == 0)) this.board[ _x ][ _y-3 ][1] += 8; //dopalacz
-                    this.setPower( _x, _y-1, _direction, _power)
+                    if (this.board[ _x ][ _y-2 ][0] == 0) this.board[ _x ][ _y-2 ][1] += extraPower; //dopalacz
+                    if ((this.board[ _x ][ _y-2 ][0] == 1) && (this.board[ _x ][ _y-3 ][0] == 0) && (this.board[ _x ][ _y-4 ][0] == 0)) this.board[ _x ][ _y-3 ][1] += extraPower*2; //dopalacz
+                    this.setPower( _x, _y-1, _direction, _power-step) //less
                   }
                   else if (this.board[ _x ][ _y-1 ][0] == 0) {
                     this.board[ _x ][ _y-1 ][1] += _power;
@@ -770,9 +983,9 @@ $(document).ready(function(){
                   break;
               case (_direction == 'NE'):
                   if (this.board[ _x+1 ][ _y-1 ][0] == 1) {
-                    if (this.board[ _x+2 ][ _y-2 ][0] == 0) this.board[ _x+2 ][ _y-2 ][1] += 4; //dopalacz
-                    if ((this.board[ _x+2 ][ _y-2 ][0] == 1) && (this.board[ _x+3 ][ _y-3 ][0] == 0) && (this.board[ _x+4 ][ _y-4 ][0] == 0)) this.board[ _x+3 ][ _y-3 ][1] += 8; //dopalacz
-                    this.setPower( _x+1, _y-1, _direction, _power)
+                    if (this.board[ _x+2 ][ _y-2 ][0] == 0) this.board[ _x+2 ][ _y-2 ][1] += extraPower; //dopalacz
+                    if ((this.board[ _x+2 ][ _y-2 ][0] == 1) && (this.board[ _x+3 ][ _y-3 ][0] == 0) && (this.board[ _x+4 ][ _y-4 ][0] == 0)) this.board[ _x+3 ][ _y-3 ][1] += extraPower*2; //dopalacz
+                    this.setPower( _x+1, _y-1, _direction, _power-step)
                   }
                   else if (this.board[ _x+1 ][ _y-1 ][0] == 0) {
                     this.board[ _x+1 ][ _y-1 ][1] += _power;
@@ -781,9 +994,9 @@ $(document).ready(function(){
                   break;
               case (_direction == 'EE'):
                   if (this.board[ _x+1 ][ _y ][0] == 1) {
-                    if (this.board[ _x+2 ][ _y ][0] == 0) this.board[ _x+2 ][ _y ][1] += 4; //dopalacz
-                    if ((this.board[ _x+2 ][ _y ][0] == 1) && (this.board[ _x+3 ][ _y ][0] == 0) && (this.board[ _x+4 ][ _y ][0] == 0)) this.board[ _x+3 ][ _y ][1] += 8; //dopalacz
-                    this.setPower( _x+1, _y, _direction, _power)
+                    if (this.board[ _x+2 ][ _y ][0] == 0) this.board[ _x+2 ][ _y ][1] += extraPower; //dopalacz
+                    if ((this.board[ _x+2 ][ _y ][0] == 1) && (this.board[ _x+3 ][ _y ][0] == 0) && (this.board[ _x+4 ][ _y ][0] == 0)) this.board[ _x+3 ][ _y ][1] += extraPower*2; //dopalacz
+                    this.setPower( _x+1, _y, _direction, _power-step)
                   }
                   else if (this.board[ _x+1 ][ _y ][0] == 0) {
                     this.board[ _x+1 ][ _y ][1] += _power;
@@ -792,9 +1005,9 @@ $(document).ready(function(){
                   break;
               case (_direction == 'SE'):
                   if (this.board[ _x+1 ][ _y+1 ][0] == 1) {
-                    if (this.board[ _x+2 ][ _y+2 ][0] == 0) this.board[ _x+2 ][ _y+2 ][1] += 4; //dopalacz
-                    if ((this.board[ _x+2 ][ _y+2 ][0] == 1) && (this.board[ _x+3 ][ _y+3 ][0] == 0) && (this.board[ _x+4 ][ _y+4 ][0] == 0)) this.board[ _x+3 ][ _y+3 ][1] += 8; //dopalacz
-                    this.setPower( _x+1, _y+1, _direction, _power)
+                    if (this.board[ _x+2 ][ _y+2 ][0] == 0) this.board[ _x+2 ][ _y+2 ][1] += extraPower; //dopalacz
+                    if ((this.board[ _x+2 ][ _y+2 ][0] == 1) && (this.board[ _x+3 ][ _y+3 ][0] == 0) && (this.board[ _x+4 ][ _y+4 ][0] == 0)) this.board[ _x+3 ][ _y+3 ][1] += extraPower*2; //dopalacz
+                    this.setPower( _x+1, _y+1, _direction, _power-step)
                   }
                   else if (this.board[ _x+1 ][ _y+1 ][0] == 0) {
                     this.board[ _x+1 ][ _y+1 ][1] += _power;
@@ -803,9 +1016,9 @@ $(document).ready(function(){
                   break;
               case (_direction == 'SS'):
                   if (this.board[ _x ][ _y+1 ][0] == 1) {
-                    if (this.board[ _x ][ _y+2 ][0] == 0) this.board[ _x ][ _y+2 ][1] += 4; //dopalacz
-                    if ((this.board[ _x ][ _y+2 ][0] == 1) && (this.board[ _x ][ _y+3 ][0] == 0) && (this.board[ _x ][ _y+4 ][0] == 0)) this.board[ _x ][ _y+3 ][1] += 8; //dopalacz
-                    this.setPower( _x, _y+1, _direction, _power)
+                    if (this.board[ _x ][ _y+2 ][0] == 0) this.board[ _x ][ _y+2 ][1] += extraPower; //dopalacz
+                    if ((this.board[ _x ][ _y+2 ][0] == 1) && (this.board[ _x ][ _y+3 ][0] == 0) && (this.board[ _x ][ _y+4 ][0] == 0)) this.board[ _x ][ _y+3 ][1] += extraPower*2; //dopalacz
+                    this.setPower( _x, _y+1, _direction, _power-step)
                   }
                   else if (this.board[ _x ][ _y+1 ][0] == 0) {
                     this.board[ _x ][ _y+1 ][1] += _power;
@@ -814,9 +1027,9 @@ $(document).ready(function(){
                   break;
               case (_direction == 'SW'):
                   if (this.board[ _x-1 ][ _y+1 ][0] == 1) {
-                    if (this.board[ _x-2 ][ _y+2 ][0] == 0) this.board[ _x-2 ][ _y+2 ][1] += 4; //dopalacz
-                    if ((this.board[ _x-2 ][ _y-2 ][0] == 1) && (this.board[ _x-3 ][ _y-3 ][0] == 0) && (this.board[ _x-4 ][ _y-4 ][0] == 0)) this.board[ _x-3 ][ _y-3 ][1] += 8; //dopalacz
-                    this.setPower( _x-1, _y+1, _direction, _power)
+                    if (this.board[ _x-2 ][ _y+2 ][0] == 0) this.board[ _x-2 ][ _y+2 ][1] += extraPower; //dopalacz
+                    if ((this.board[ _x-2 ][ _y-2 ][0] == 1) && (this.board[ _x-3 ][ _y-3 ][0] == 0) && (this.board[ _x-4 ][ _y-4 ][0] == 0)) this.board[ _x-3 ][ _y-3 ][1] += extraPower+2; //dopalacz
+                    this.setPower( _x-1, _y+1, _direction, _power-step)
                   }
                   else if (this.board[ _x-1 ][ _y+1 ][0] == 0) {
                     this.board[ _x-1 ][ _y+1 ][1] += _power;
@@ -825,9 +1038,9 @@ $(document).ready(function(){
                   break;
               case (_direction == 'WW'):
                   if (this.board[ _x-1 ][ _y ][0] == 1) {
-                    if (this.board[ _x-2 ][ _y ][0] == 0) this.board[ _x-2 ][ _y ][1] += 4; //dopalacz
-                    if ((this.board[ _x-2 ][ _y ][0] == 1) && (this.board[ _x-3 ][ _y ][0] == 0) && (this.board[ _x-4 ][ _y ][0] == 0)) this.board[ _x-3 ][ _y ][1] += 8; //dopalacz
-                    this.setPower( _x-1, _y, _direction, _power)
+                    if (this.board[ _x-2 ][ _y ][0] == 0) this.board[ _x-2 ][ _y ][1] += extraPower; //dopalacz
+                    if ((this.board[ _x-2 ][ _y ][0] == 1) && (this.board[ _x-3 ][ _y ][0] == 0) && (this.board[ _x-4 ][ _y ][0] == 0)) this.board[ _x-3 ][ _y ][1] += extraPower*2; //dopalacz
+                    this.setPower( _x-1, _y, _direction, _power-step)
                   }
                   else if (this.board[ _x-1 ][ _y ][0] == 0) {
                     this.board[ _x-1 ][ _y ][1] += _power;
@@ -836,9 +1049,9 @@ $(document).ready(function(){
                   break;
               case (_direction == 'NW'):
                   if (this.board[ _x-1 ][ _y-1 ][0] == 1) {
-                    if (this.board[ _x-2 ][ _y-2 ][0] == 0) this.board[ _x-2 ][ _y-2 ][1] += 4; //dopalacz
-                    if ((this.board[ _x-2 ][ _y-2 ][0] == 1) && (this.board[ _x-3 ][ _y-3 ][0] == 0) && (this.board[ _x-4 ][ _y-4 ][0] == 0)) this.board[ _x-3 ][ _y-3 ][1] += 8; //dopalacz
-                    this.setPower( _x-1, _y-1, _direction, _power)
+                    if (this.board[ _x-2 ][ _y-2 ][0] == 0) this.board[ _x-2 ][ _y-2 ][1] += extraPower; //dopalacz
+                    if ((this.board[ _x-2 ][ _y-2 ][0] == 1) && (this.board[ _x-3 ][ _y-3 ][0] == 0) && (this.board[ _x-4 ][ _y-4 ][0] == 0)) this.board[ _x-3 ][ _y-3 ][1] += extraPower*2; //dopalacz
+                    this.setPower( _x-1, _y-1, _direction, _power-step)
                   }
                   else if (this.board[ _x-1 ][ _y-1 ][0] == 0) {
                     this.board[ _x-1 ][ _y-1 ][1] += _power;

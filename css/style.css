@@ -57,6 +57,12 @@
   font-size: 40px;
   color : blue;
   cursor: pointer;
+  position: relative;
+}
+
+#info img {
+position:absolute;
+left:130px;
 }
 
 
